@@ -12,4 +12,5 @@ run: build
 	@docker run --rm volley
 
 ci:
+	@npm install
 	@npm run ci
