@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 readonly current="$( cd "$(dirname "$0")" ; pwd -P )"
-readonly out_file="/tmp/logging-the-ball-heights.out"
+readonly out_file="/tmp/logging-the-ball-positions.out"
 
 ${SC_VLY_ROOT}/bin/volley >${out_file} 2>/dev/null & disown
 sleep 4
