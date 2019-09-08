@@ -19,7 +19,7 @@
 
 #### Requirements
 - command line application `volley`
-- output is a sequence of lines containing the height of the ball at the current moment
+- output is a sequence of lines containing the vertical position of the ball at the current moment
 - the ball is falling under gravity
 - there is no interaction, to stop the application the process must be stopped
 - the ball just falls, there is no floor and no bouncing
