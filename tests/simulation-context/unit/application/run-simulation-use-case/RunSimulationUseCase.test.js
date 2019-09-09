@@ -1,6 +1,6 @@
 const RunSimulationUseCase = require('../../../../../src/simulation-context/application/run-simulation-use-case/RunSimulationUseCase');
 
-test('runs simulation and present body positions', () => {
+test('runs simulation and presents body positions', () => {
     const pos = 123;
     const physics = {
         getBody() {
