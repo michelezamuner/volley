@@ -1,7 +1,9 @@
 const SimulationService = require('../../../../../src/simulation-context/application/run-simulation-use-case/SimulationService');
 
 test('makes ball fall and launches loop', () => {
-    const ball = {};
+    const ball = {
+        apply: jest.fn(),
+    };
     const factory = {
         create(mass, pos) {
             expect(mass).toBe(SimulationService.BALL_MASS);
@@ -9,11 +11,6 @@ test('makes ball fall and launches loop', () => {
 
             return ball;
         }
-    };
-    const physics = {
-        addBody: jest.fn(),
-        applyForce: jest.fn(),
-        processStep: jest.fn(),
     };
     const time = {
         SECOND: 0.002,
@@ -29,14 +26,13 @@ test('makes ball fall and launches loop', () => {
         }
     };
 
-    const service = new SimulationService(factory, physics, time);
+    const service = new SimulationService(factory, time);
     const callback = jest.fn();
     service.run(callback);
 
-    expect(physics.addBody).toBeCalledWith(ball);
-    expect(physics.applyForce).toBeCalledWith(SimulationService.BALL_MASS * SimulationService.G);
-    expect(physics.processStep).toBeCalledTimes(4);
-    expect(physics.processStep).toBeCalledWith(SimulationService.RESOLUTION);
+    const force = SimulationService.BALL_MASS * SimulationService.G;
+    expect(ball.apply).toBeCalledTimes(4);
+    expect(ball.apply).toBeCalledWith(force, SimulationService.RESOLUTION);
     expect(callback).toBeCalledTimes(2);
-    expect(callback).toBeCalledWith(physics);
+    expect(callback).toBeCalledWith(ball);
 });
