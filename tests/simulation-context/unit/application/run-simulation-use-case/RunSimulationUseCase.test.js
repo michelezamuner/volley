@@ -3,17 +3,13 @@ const RunSimulationUseCase = require('../../../../../src/simulation-context/appl
 test('runs simulation and presents ball positions', () => {
     const pos = 123;
     const ball = {
-        getPosition() {
-            return pos;
-        },
+        getPosition() { return pos; },
     };
     const presenter = {
         present: jest.fn(),
     };
     const service = {
-        runSimulation(callback) {
-            callback(ball);
-        },
+        run(callback) { callback(ball); },
     };
     
     const useCase = new RunSimulationUseCase(service, presenter);
