@@ -1,9 +1,10 @@
 const SimulationService = require('../../../../../src/simulation-context/application/run-simulation-use-case/SimulationService');
 
-test('makes ball fall and launches loop', () => {
+test('simulates ball falling', () => {
     const ball = {
         apply: jest.fn(),
     };
+    const gravity = SimulationService.BALL_MASS * SimulationService.G;
     const factory = {
         create(mass, pos) {
             expect(mass).toBe(SimulationService.BALL_MASS);
@@ -12,27 +13,24 @@ test('makes ball fall and launches loop', () => {
             return ball;
         }
     };
+    let call = 0;
+    const times = [0, 0.1234, 0.5434, 1.2234];
     const time = {
-        SECOND: 0.002,
-        now() {
-            return 0;
-        },
-        loop(resolution, callback) {
-            expect(resolution).toBe(SimulationService.RESOLUTION);
-            callback(0.001);
-            callback(0.002);
-            callback(0.003);
-            callback(0.004);
-        }
+        start: jest.fn(),
+        isRunning() { return call < times.length; },
+        current() { return times[call++]; }
     };
 
     const service = new SimulationService(factory, time);
     const callback = jest.fn();
     service.run(callback);
 
-    const force = SimulationService.BALL_MASS * SimulationService.G;
-    expect(ball.apply).toBeCalledTimes(4);
-    expect(ball.apply).toBeCalledWith(force, SimulationService.RESOLUTION);
-    expect(callback).toBeCalledTimes(2);
+    expect(time.start).toBeCalledTimes(1);
+    expect(ball.apply).toBeCalledTimes(times.length);
+    for (let i = 0; i < times.length; i++) {
+        const diff = i === 0 ? 0 : times[i] - times[i - 1];
+        expect(ball.apply).toHaveBeenNthCalledWith(i + 1, gravity, diff);
+    }
+    expect(callback).toBeCalledTimes(times.length);
     expect(callback).toBeCalledWith(ball);
 });

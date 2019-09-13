@@ -16,7 +16,7 @@ module.exports = class RunSimulationUseCase {
     }
 
     runSimulation() {
-        this._service.runSimulation(/** @type {Body} */ball => {
+        this._service.run(/** @type {Body} */ball => {
             this._presenter.present(ball.getPosition());
         });
     }
