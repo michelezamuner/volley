@@ -1,7 +1,7 @@
 /**
  * @package SimulationContext.Application.RunSimulationUseCase
  * @requires SimulationContext.Domain.Physics.BodyFactory
- * @requires SimulationContext.Domain.Physics.Physics
+ * @requires SimulationContext.Domain.Physics.Body
  * @requires SimulationContext.Application.RunSimulationUseCase.TimeProvider
  */
 module.exports = class SimulationService {
@@ -18,13 +18,11 @@ module.exports = class SimulationService {
     static get RESOLUTION() { return 0.001; }
 
     /**
-     * @param {BodyFactory} factory 
-     * @param {Physics} physics 
-     * @param {TimeProvider} time 
+     * @param {BodyFactory} factory
+     * @param {TimeProvider} time
      */
-    constructor(factory, physics, time) {
+    constructor(factory, time) {
         this._factory = factory;
-        this._physics = physics;
         this._time = time;
     }
 
@@ -32,17 +30,15 @@ module.exports = class SimulationService {
      * @param {Function} callback 
      */
     run(callback) {
+        /** @type {Body} */
         const ball = this._factory.create(SimulationService.BALL_MASS, SimulationService.BALL_POS);
-        this._physics.addBody(ball);
-
         const gravity = SimulationService.BALL_MASS * SimulationService.G;
-        this._physics.applyForce(gravity);
 
         let stepStart = this._time.now();
         this._time.loop(SimulationService.RESOLUTION, stepTime => {
-            this._physics.processStep(SimulationService.RESOLUTION);
+            ball.apply(gravity, SimulationService.RESOLUTION);
             if (stepTime >= stepStart + this._time.SECOND) {
-                callback(this._physics);
+                callback(ball);
                 stepStart = stepTime;
             }
         });

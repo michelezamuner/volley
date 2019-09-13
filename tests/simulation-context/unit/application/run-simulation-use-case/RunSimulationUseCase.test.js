@@ -1,14 +1,10 @@
 const RunSimulationUseCase = require('../../../../../src/simulation-context/application/run-simulation-use-case/RunSimulationUseCase');
 
-test('runs simulation and presents body positions', () => {
+test('runs simulation and presents ball positions', () => {
     const pos = 123;
-    const physics = {
-        getBody() {
-            return {
-                getPosition() {
-                    return pos;
-                },
-            };
+    const ball = {
+        getPosition() {
+            return pos;
         },
     };
     const presenter = {
@@ -16,7 +12,7 @@ test('runs simulation and presents body positions', () => {
     };
     const service = {
         runSimulation(callback) {
-            callback(physics);
+            callback(ball);
         },
     };
     

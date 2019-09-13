@@ -2,6 +2,7 @@
  * @package SimulationContext.Application.RunSimulationUseCase
  * @requires SimulationContext.Application.RunSimulationUseCase.SimulationService
  * @requires SimulationContext.Application.RunSimulationUseCase.RunSimulationPresenter
+ * @requires SimulationContext.Domain.Physics.Body
  */
 
 module.exports = class RunSimulationUseCase {
@@ -15,8 +16,8 @@ module.exports = class RunSimulationUseCase {
     }
 
     runSimulation() {
-        this._service.runSimulation(physics => {
-            this._presenter.present(physics.getBody().getPosition());
+        this._service.runSimulation(/** @type {Body} */ball => {
+            this._presenter.present(ball.getPosition());
         });
     }
 };
