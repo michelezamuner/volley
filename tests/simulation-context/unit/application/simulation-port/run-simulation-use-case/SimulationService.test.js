@@ -1,4 +1,4 @@
-const SimulationService = require('../../../../../src/simulation-context/application/run-simulation-use-case/SimulationService');
+const SimulationService = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/SimulationService');
 
 test('simulates ball falling', () => {
     const ball = {

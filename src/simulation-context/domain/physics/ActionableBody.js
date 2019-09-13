@@ -18,28 +18,28 @@ module.exports = class ActionableBody {
     }
 
     /**
-     * @return {int}
+     * @override
      */
     getMass() {
         return this._mass;
     }
 
     /**
-     * @return {int}
+     * @override
      */
     getPosition() {
         return this._position;
     }
 
     /**
-     * @return {int}
+     * @override
      */
     getVelocity() {
         return this._velocity;
     }
 
     /**
-     * @return {int}
+     * @override
      */
     getAcceleration() {
         return this._acceleration;

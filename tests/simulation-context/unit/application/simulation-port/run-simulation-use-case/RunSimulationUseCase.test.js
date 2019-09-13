@@ -1,4 +1,4 @@
-const RunSimulationUseCase = require('../../../../../src/simulation-context/application/run-simulation-use-case/RunSimulationUseCase');
+const RunSimulationUseCase = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/RunSimulationUseCase');
 
 test('runs simulation and presents ball positions', () => {
     const pos = 123;
