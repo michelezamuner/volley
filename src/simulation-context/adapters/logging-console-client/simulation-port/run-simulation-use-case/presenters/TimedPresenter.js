@@ -1,9 +1,7 @@
-const Time = require('./Time');
-
 /**
- * @package SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase
- * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.TimedPresenterView
- * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Time
+ * @package SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters
+ * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters.TimedPresenterView
+ * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters.Time
  * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.SimulationPresenter
  * @implements SimulationPresenter
  */
@@ -23,7 +21,7 @@ module.exports = class TimedPresenter {
      */
     present(position) {
         const now = this._time.now();
-        if (now >= this._start + Time.SECOND) {
+        if (now >= this._start + this._time.getSecond()) {
             this._view.render(position);
             this._start = now;
         }

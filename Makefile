@@ -11,6 +11,8 @@ ssh: build
 run: build
 	@docker run --rm volley
 
-ci:
+install:
 	@npm install
+
+ci:
 	@npm run ci
