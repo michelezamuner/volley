@@ -1,10 +1,13 @@
 const config = {
-    roots: ['./tests'],
     testEnvironment: 'node',
     verbose: true,
+    collectCoverageFrom: ['src/**/*.js'],
     coverageDirectory: '/tmp',
     coveragePathIgnorePatterns: [
-
+        // Factories
+        'BodyFactory\.js',
+        // Humble objects
+        'ConsoleLogView\.js',
     ],
     coverageReporters: ['text'],
 };

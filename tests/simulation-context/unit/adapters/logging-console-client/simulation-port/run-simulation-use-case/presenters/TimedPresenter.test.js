@@ -1,4 +1,4 @@
-const TimedPresenter = require('../../../../../../../src/simulation-context/adapters/logging-console-client/simulation-port/run-simulation-use-case/TimedPresenter');
+const TimedPresenter = require('../../../../../../../../src/simulation-context/adapters/logging-console-client/simulation-port/run-simulation-use-case/presenters/TimedPresenter');
 
 test('renders positions once per second', () => {
     const view = {
@@ -8,6 +8,7 @@ test('renders positions once per second', () => {
     let calls = 0;
     const time = {
         now() { return times[calls++]; },
+        getSecond() { return 1000; },
     };
 
     const presenter = new TimedPresenter(view, time);
