@@ -18,7 +18,7 @@ module.exports = class SimulationService {
     /**
      * @const {int}
      */
-    static get G() { return 9.8066; }
+    static get G() { return -9.8066; }
 
     /**
      * @param {BodyFactory} factory
@@ -37,13 +37,15 @@ module.exports = class SimulationService {
         const ball = this._factory.create(SimulationService.BALL_MASS, SimulationService.BALL_POS);
         const gravity = SimulationService.BALL_MASS * SimulationService.G;
 
+        callback(ball);
+
         this._time.start();
         let stepStart = 0;
         while (this._time.isRunning()) {
             const current = this._time.current();
             const interval = current - stepStart;
             stepStart = current;
-            ball.apply(gravity, interval);
+            ball.apply(gravity, interval / 1000);
 
             callback(ball);
         }
