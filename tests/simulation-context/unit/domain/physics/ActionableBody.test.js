@@ -28,26 +28,25 @@ test('updates status when applying force', () => {
     const mass = 5;
     const time = 0.1;
     const force = 5;
+    const acceleration = 1;
 
-    // [initial_pos, inital_vel, initial_acc, final_pos, final_vel, final_acc]
+    // [initial_position, inital_velocity, final_position, final_velocity]
     const examples = [
-        [3, 2, 1, 3.22, 2.2, 2],
-        [1, 2, 3, 1.24, 2.4, 4],
-        [3, 5, 1, 3.52, 5.2, 2],
+        [3, 2, 3.21, 2.1],
+        [1, 3, 1.31, 3.1],
+        [3, 5, 3.51, 5.1],
     ];
     for (const example of examples) {
         const initialPosition = example[0];
         const initialVelocity = example[1];
-        const initialAcceleration = example[2];
-        const finalPosition = example[3];
-        const finalVelocity = example[4];
-        const finalAcceleration = example[5];
+        const finalPosition = example[2];
+        const finalVelocity = example[3];
 
-        const body = new ActionableBody(mass, initialPosition, initialVelocity, initialAcceleration);
+        const body = new ActionableBody(mass, initialPosition, initialVelocity);
         body.apply(force, time);
 
-        // acceleration = initial_acceleration + force / mass
-        expect(body.getAcceleration()).toBe(finalAcceleration);
+        // acceleration = force / mass
+        expect(body.getAcceleration()).toBe(acceleration);
         // velocity = initial_velocity + acceleration * time
         expect(body.getVelocity()).toBe(finalVelocity);
         // position = initial_poisition + velocity * time

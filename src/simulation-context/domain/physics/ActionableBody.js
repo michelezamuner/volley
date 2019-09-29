@@ -8,13 +8,12 @@ module.exports = class ActionableBody {
      * @param {number} mass
      * @param {number} position
      * @param {number} velocity
-     * @param {number} acceleration
      */
-    constructor(mass, position = 0, velocity = 0, acceleration = 0) {
+    constructor(mass, position = 0, velocity = 0) {
         this._mass = mass;
         this._position = position;
         this._velocity = velocity;
-        this._acceleration = acceleration;
+        this._acceleration = 0;
     }
 
     /**
@@ -47,11 +46,11 @@ module.exports = class ActionableBody {
 
     /**
      * @param {number} force 
-     * @param {number} time 
+     * @param {number} interval 
      */
-    apply(force, time) {
-        this._acceleration += force / this._mass;
-        this._velocity += this._acceleration * time;
-        this._position += this._velocity * time;
+    apply(force, interval) {
+        this._acceleration = force / this._mass;
+        this._velocity += this._acceleration * interval;
+        this._position += this._velocity * interval;
     }
 };

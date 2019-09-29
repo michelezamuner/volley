@@ -8,6 +8,11 @@ const config = {
         'BodyFactory\.js',
         // Humble objects
         'ConsoleLogView\.js',
+        // Wrappers of static types
+        'main/Console\.js',
+        'time-driver/Time\.js',
+        // Main
+        'main/main\.js',
     ],
     coverageReporters: ['text'],
 };

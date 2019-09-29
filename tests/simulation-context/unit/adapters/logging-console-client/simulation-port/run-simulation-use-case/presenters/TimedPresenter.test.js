@@ -4,22 +4,24 @@ test('renders positions once per second', () => {
     const view = {
         render: jest.fn(),
     };
-    const times = [1232.5433, 1343.5433, 2456.6758, 3367.6544];
+    const times = [1.2325433, 1.3435433, 2.4566758, 3.3676544];
     let calls = 0;
     const time = {
         now() { return times[calls++]; },
-        getSecond() { return 1000; },
     };
 
     const presenter = new TimedPresenter(view, time);
     const position = 1234;
 
     presenter.present(position);
-    expect(view.render).not.toBeCalled();
+    expect(view.render).toHaveBeenNthCalledWith(1, position);
 
     presenter.present(position);
     expect(view.render).toHaveBeenNthCalledWith(1, position);
 
     presenter.present(position);
-    expect(view.render).toBeCalledTimes(1);
+    expect(view.render).toHaveBeenNthCalledWith(2, position);
+
+    presenter.present(position);
+    expect(view.render).toHaveBeenNthCalledWith(3, position);
 });
