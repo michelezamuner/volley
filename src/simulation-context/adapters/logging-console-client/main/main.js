@@ -8,13 +8,15 @@ const SimulationPresenter = require('../simulation-port/run-simulation-use-case/
 const RunSimulationUseCase = require('../../../application/simulation-port/run-simulation-use-case/RunSimulationUseCase');
 const Controller = require('../simulation-port/run-simulation-use-case/controllers/Controller');
 
-const factory = new BodyFactory();
-const timeProvider = new TimeProvider();
-const time = new Time(timeProvider);
-const service = new SimulationService(factory, time);
-const view = new ConsoleLogView(new Console());
-const presenter = new SimulationPresenter(view, timeProvider);
-const useCase = new RunSimulationUseCase(service, presenter);
-const controller = new Controller(useCase);
-
-controller.runSimulation();
+module.exports = function main() {
+    const factory = new BodyFactory();
+    const timeProvider = new TimeProvider();
+    const time = new Time(timeProvider);
+    const service = new SimulationService(factory, time);
+    const view = new ConsoleLogView(new Console());
+    const presenter = new SimulationPresenter(view, timeProvider);
+    const useCase = new RunSimulationUseCase(service, presenter);
+    const controller = new Controller(useCase);
+    
+    controller.runSimulation();
+}

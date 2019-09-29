@@ -9,9 +9,7 @@ Scenario: Logging the ball positions
     Then the following approximated ball positions are printed to the console:
         """
         100
-        90.19335
-        70.58005
-        41.1601
-        1.9335
-        -47.09975
+        95.0967
+        80.3868
+        55.8703
         """

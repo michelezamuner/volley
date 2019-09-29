@@ -13,22 +13,24 @@ module.exports = class TimedPresenter {
     constructor(view, time) {
         this._view = view;
         this._time = time;
-        this._start = time.now();
-        this._hasStarted = false;
+        this._lastIntervalStart = null;
     }
     
     /**
      * @override
      */
     present(position) {
-        if (!this._hasStarted) {
-            this._hasStarted = true;
+        if (this._lastIntervalStart === null) {
+            this._lastIntervalStart = this._time.now();
             this._view.render(position);
+
+            return;
         }
-        const now = this._time.now();
-        if (now >= this._start + this._time.getSecond()) {
+
+        const step = 1;
+        if (this._time.now() >= this._lastIntervalStart + step) {
+            this._lastIntervalStart += step;
             this._view.render(position);
-            this._start = now;
         }
     }
 };

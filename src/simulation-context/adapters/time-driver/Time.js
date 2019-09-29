@@ -9,14 +9,16 @@ module.exports = class Time {
     /**
      * @override
      */
-    now() {
-        return Math.floor(Date.now());
-    }
+    getCurrentTimeInSeconds() {
+        const timeData = process.hrtime();
 
+        return timeData[0] + timeData[1] / 1000000000;
+    }
+    
     /**
      * @override
      */
-    getSecond() {
-        return 1000;
+    now() {
+        return this.getCurrentTimeInSeconds();
     }
 };

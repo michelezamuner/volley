@@ -12,7 +12,10 @@ module.exports = class Time {
     }
 
     start() {
-        this._start = this._provider.now();
+        if (this.isRunning()) {
+            throw 'Cannot start again time that is already running';
+        }
+        this._start = this._provider.getCurrentTimeInSeconds();
     }
 
     /**
@@ -30,6 +33,6 @@ module.exports = class Time {
             throw 'Cannot use time that is not running';
         }
         
-        return this._provider.now() - this._start;
+        return this._provider.getCurrentTimeInSeconds() - this._start;
     }
 };

@@ -1,8 +1,9 @@
 const SimulationService = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/SimulationService');
 
 test('simulates ball falling', () => {
+    let applicationsCount = 0;
     const ball = {
-        apply: jest.fn(),
+        apply: jest.fn(() => applicationsCount++),
     };
     const gravity = SimulationService.BALL_MASS * SimulationService.G;
     const factory = {
@@ -22,15 +23,18 @@ test('simulates ball falling', () => {
     };
 
     const service = new SimulationService(factory, time);
-    const callback = jest.fn();
+    let callbacksCount = 0;
+    const callback = jest.fn(arg => {
+        callbacksCount++;
+        expect(arg).toBe(ball);
+        expect(callbacksCount).toBe(applicationsCount + 1);
+    });
+
     service.run(callback);
 
     expect(time.start).toBeCalledTimes(1);
-    expect(ball.apply).toBeCalledTimes(times.length);
     for (let i = 0; i < times.length; i++) {
         const diff = i === 0 ? 0 : times[i] - times[i - 1];
         expect(ball.apply).toHaveBeenNthCalledWith(i + 1, gravity, diff);
     }
-    expect(callback).toBeCalledTimes(times.length);
-    expect(callback).toBeCalledWith(ball);
 });

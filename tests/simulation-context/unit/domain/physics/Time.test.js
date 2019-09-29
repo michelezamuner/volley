@@ -4,7 +4,7 @@ test('provides current time after being started', () => {
     let call = 0;
     const times = [1.1234, 2.4235, 4.5632];
     const provider = {
-        now() { return times[call++]; },
+        getCurrentTimeInSeconds() { return times[call++]; },
     };
     const time = new Time(provider);
 
@@ -15,7 +15,7 @@ test('provides current time after being started', () => {
 
 test('tells if is running', () => {
     const provider = {
-        now() { return 0; }
+        getCurrentTimeInSeconds() { return 0; }
     };
     const time = new Time(provider);
 
@@ -23,6 +23,16 @@ test('tells if is running', () => {
 
     time.start();
     expect(time.isRunning()).toBe(true);
+});
+
+test('fails if starting time again that is already started', () => {
+    const provider = {
+        getCurrentTimeInSeconds() { return 0; }
+    };
+    const time = new Time(provider);
+
+    time.start();
+    expect(() => time.start()).toThrow('Cannot start again time that is already running');    
 });
 
 test('fails if getting current time while not started', () => {
