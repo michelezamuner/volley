@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-const main = require('../src/simulation-context/adapters/logging-console-client/main/main');
-main();
+require('../src/simulation-context/adapters/clients/console/main/main')();

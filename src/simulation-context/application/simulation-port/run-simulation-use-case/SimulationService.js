@@ -13,7 +13,7 @@ module.exports = class SimulationService {
     /**
      * @const {int}
      */
-    static get BALL_POS() { return 100; }
+    static get BALL_POS() { return 200; }
 
     /**
      * @const {int}
