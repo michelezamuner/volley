@@ -9,8 +9,8 @@ const config = {
         // Humble objects
         'ConsoleLogView\.js',
         // Wrappers of static types
-        'main/Console\.js',
-        'time-driver/Time\.js',
+        'main/Time\.js',
+        'drivers/time/time-port/Time\.js',
         // Main
         'main/main\.js',
     ],
