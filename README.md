@@ -1,5 +1,6 @@
 # Volley
 
+![Travis (.org) branch](https://img.shields.io/travis/michelezamuner/volley/master)
 
 ## Milestone 1
 
@@ -15,7 +16,7 @@
 - points are assigned either when the ball touches the ground, or when it falls out of the screen bounds
 
 
-### Iteration 1
+### Iteration 1 &#x2705;
 
 #### Requirements
 - command line application `volley`
@@ -37,7 +38,7 @@
 
 #### Requirements
 - there's a floor at a certain height, making the ball bounce
-- air friction is considered for all bodies
+- air friction is considered for the ball
 
 
 ### Iteration 3
