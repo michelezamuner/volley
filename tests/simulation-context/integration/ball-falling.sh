@@ -3,10 +3,10 @@ set -euo pipefail
 IFS=$'\n\t'
 
 readonly current="$( cd "$(dirname "$0")" ; pwd -P )"
-readonly out_file="/tmp/logging-the-ball-positions.out"
+readonly out_file="/tmp/ball-falling.out"
 
 ${SC_VLY_ROOT}/bin/volley >${out_file} 2>/dev/null & disown
-sleep 4
+sleep 5
 ps aux | grep '[v]olley' | awk '{ print $2 }' | xargs kill -9
 
 cat ${out_file}

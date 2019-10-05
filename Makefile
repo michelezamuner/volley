@@ -2,13 +2,16 @@
 
 root=$(shell pwd)
 
+clean:
+	@docker image ls | grep volley >/dev/null && docker image rm volley
+
 build:
 	@docker image ls | grep volley >/dev/null || docker build -t volley .
 
 ssh: build
 	@docker run -ti --rm -v $(root):/app:delegated volley bash
 
-run: build
+run:
 	@docker run --rm volley
 
 install:
