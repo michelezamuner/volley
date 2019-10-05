@@ -1,15 +1,21 @@
 const SimulationService = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/SimulationService');
 
 test('simulates ball falling', () => {
+    const mass = 12;
+    const pos = 123;
+    const conf = {
+        getBallMass() { return mass; },
+        getBallPos() { return pos; },
+    };
     let applicationsCount = 0;
     const ball = {
         apply: jest.fn(() => applicationsCount++),
     };
-    const gravity = SimulationService.BALL_MASS * SimulationService.G;
+    const gravity = mass * SimulationService.G;
     const factory = {
         create(mass, pos) {
-            expect(mass).toBe(SimulationService.BALL_MASS);
-            expect(pos).toBe(SimulationService.BALL_POS);
+            expect(mass).toBe(mass);
+            expect(pos).toBe(pos);
 
             return ball;
         }
@@ -22,7 +28,7 @@ test('simulates ball falling', () => {
         current() { return times[call++]; }
     };
 
-    const service = new SimulationService(factory, time);
+    const service = new SimulationService(conf, factory, time);
     let callbacksCount = 0;
     const callback = jest.fn(arg => {
         callbacksCount++;

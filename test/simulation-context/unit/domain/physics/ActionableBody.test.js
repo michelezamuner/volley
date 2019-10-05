@@ -10,7 +10,7 @@ test('is of type Body', () => {
 });
 
 test('defaults cinematic properties to zero', () => {
-    const body = new ActionableBody(/* mass */5);
+    const body = new ActionableBody(/* mass: */5);
 
     expect(body.getPosition()).toBe(0);
     expect(body.getVelocity()).toBe(0);
