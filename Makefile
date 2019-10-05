@@ -11,7 +11,7 @@ build:
 ssh: build
 	@docker run -ti --rm -v $(root):/app:delegated volley bash
 
-run: clean build
+run:
 	@docker run --rm volley
 
 install:
