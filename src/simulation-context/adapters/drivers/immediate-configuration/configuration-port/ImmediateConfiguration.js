@@ -5,12 +5,14 @@
  */
 module.exports = class ImmediateConfiguration {
     /**
-     * @param {number} ballMass 
-     * @param {number} ballPos 
+     * @param {number} ballMass
+     * @param {number} ballPos
+     * @param {number|null} floorPos
      */
-    constructor(ballMass, ballPos) {
+    constructor(ballMass, ballPos, floorPos = null) {
         this._ballMass = ballMass;
         this._ballPos = ballPos;
+        this._floorPos = floorPos;
     }
 
     /**
@@ -25,5 +27,12 @@ module.exports = class ImmediateConfiguration {
      */
     getBallPos() {
         return this._ballPos;
+    }
+
+    /**
+     * @override
+     */
+    getFloorPos() {
+        return this._floorPos;
     }
 };

@@ -1,46 +1,108 @@
 const SimulationService = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/SimulationService');
 
-test('simulates ball falling', () => {
-    const mass = 12;
-    const pos = 123;
+test('runs physics simulation without floor', () => {
+    const ballMass = 12;
+    const ballPos = 123;
     const conf = {
-        getBallMass() { return mass; },
-        getBallPos() { return pos; },
+        getBallMass() { return ballMass; },
+        getBallPos() { return ballPos; },
+        getFloorPos() { return null; },
     };
-    let applicationsCount = 0;
-    const ball = {
-        apply: jest.fn(() => applicationsCount++),
-    };
-    const gravity = mass * SimulationService.G;
-    const factory = {
-        create(mass, pos) {
-            expect(mass).toBe(mass);
-            expect(pos).toBe(pos);
 
-            return ball;
-        }
+    const gravity = ballMass * SimulationService.G;
+    const ball = {};
+    let resolutions = 0;
+    const physics = {
+        setField: jest.fn(),
+        setBody: jest.fn(),
+        resolve: jest.fn(() => resolutions++),
     };
-    let call = 0;
+    const factory = {
+        createBody(mass, pos) {
+            return mass === ballMass && pos === ballPos ? ball : null;
+        },
+        createPhysics() {
+            return physics;
+        },
+    };
+
+    let ticks = 0;
     const times = [0, 0.1234, 0.5434, 1.2234];
     const time = {
         start: jest.fn(),
-        isRunning() { return call < times.length; },
-        current() { return times[call++]; }
+        isRunning() { return ticks < times.length; },
+        current() { return times[ticks++]; }
     };
 
     const service = new SimulationService(conf, factory, time);
-    let callbacksCount = 0;
+    let callbacks = 0;
     const callback = jest.fn(arg => {
-        callbacksCount++;
+        callbacks++;
         expect(arg).toBe(ball);
-        expect(callbacksCount).toBe(applicationsCount + 1);
+        expect(callbacks).toBe(resolutions + 1);
     });
 
     service.run(callback);
 
+    expect(physics.setField.mock.calls[0][0]).toBe(gravity);
+    expect(physics.setBody.mock.calls[0][0]).toBe(ball);
     expect(time.start).toBeCalledTimes(1);
     for (let i = 0; i < times.length; i++) {
         const diff = i === 0 ? 0 : times[i] - times[i - 1];
-        expect(ball.apply).toHaveBeenNthCalledWith(i + 1, gravity, diff);
+        expect(physics.resolve.mock.calls[i][0]).toBe(diff);
+    }
+});
+
+test('runs physics simulation with floor', () => {
+    const ballMass = 12;
+    const ballPos = 123;
+    const floorPos = 0;
+    const conf = {
+        getBallMass() { return ballMass; },
+        getBallPos() { return ballPos; },
+        getFloorPos() { return floorPos; },
+    };
+
+    const gravity = ballMass * SimulationService.G;
+    const ball = {};
+    const floor = {};
+    let resolutions = 0;
+    const physics = {
+        setField: jest.fn(),
+        setBody: jest.fn(),
+        setConstraint: jest.fn(),
+        resolve: jest.fn(() => resolutions++),
+    };
+    const factory = {
+        createBody(mass, pos) {
+            return mass === ballMass && pos === ballPos ? ball : null;
+        },
+        createConstraint(pos) {
+            return pos === floorPos ? floor : null;
+        },
+        createPhysics() {
+            return physics;
+        },
+    };
+
+    let ticks = 0;
+    const times = [0, 0.1234, 0.5434, 1.2234];
+    const time = {
+        start: jest.fn(),
+        isRunning() { return ticks < times.length; },
+        current() { return times[ticks++]; }
+    };
+
+    const service = new SimulationService(conf, factory, time);
+    
+    service.run(/* callback: */() => {});
+
+    expect(physics.setField.mock.calls[0][0]).toBe(gravity);
+    expect(physics.setBody.mock.calls[0][0]).toBe(ball);
+    expect(physics.setConstraint.mock.calls[0][0]).toBe(floor);
+    expect(time.start).toBeCalledTimes(1);
+    for (let i = 0; i < times.length; i++) {
+        const diff = i === 0 ? 0 : times[i] - times[i - 1];
+        expect(physics.resolve.mock.calls[i][0]).toBe(diff);
     }
 });

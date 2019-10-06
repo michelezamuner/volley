@@ -14,6 +14,7 @@ module.exports = class ActionableBody {
         this._position = position;
         this._velocity = velocity;
         this._acceleration = 0;
+        this._force = 0;
     }
 
     /**
@@ -45,12 +46,19 @@ module.exports = class ActionableBody {
     }
 
     /**
-     * @param {number} force 
-     * @param {number} interval 
+     * @param {number} force
      */
-    apply(force, interval) {
-        this._acceleration = force / this._mass;
+    apply(force) {
+        this._force += force;
+    }
+
+    /**
+     * @param {number} interval
+     */
+    resolve(interval) {
+        this._acceleration = this._force / this._mass;
         this._velocity += this._acceleration * interval;
         this._position += this._velocity * interval;
+        this._force = 0;
     }
 };
