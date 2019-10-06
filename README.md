@@ -1,7 +1,5 @@
 # Volley
 
-![Travis (.org) branch](https://img.shields.io/travis/michelezamuner/volley/master)
-
 ## Milestone 1
 
 - 2D graphical user interface on the Web browser
@@ -26,12 +24,22 @@
 - the ball just falls, there is no floor and no bouncing
 
 
-#### Design:
-- domains: the core domain is the Physics Domain, containing the simulation of time, bodies and gravity
-- bounded contexts: for this we only need one bounded context, which would be the Simulation Context, containing both the domain model and the CLI client
-- actors: the sole actor is Player, and the sole user story is Run Simulation, where the Player just runs the program
-- ports: the sole primary port is the Simulation port, featuring the Run Simulation use case; a secondary port Time could be needed to get time measurements
-- adapters: the CLI client will access the Simulation port from the command line, and the System Time driver will provide the system time
+#### Design
+- domains
+    - **Physics Domain (core domain): simulation of time, bodies and gravity**
+- bounded contexts
+    - **Simulation Context: domain model and CLI client**
+- actors and user stories
+    - **Player**
+        - **Run Simulation: the Player runs the program**
+- ports and use cases
+    - **Simulation port (primary)**
+        - **Run Simulation use case**
+    - **Time port(secondary): get time measurements**
+- adapters
+    - **Console client**
+        **Simulation port: from the command line**
+    - **System Time driver (Time port): provides the system time**
 
 
 ### Iteration 2
@@ -40,6 +48,24 @@
 - there's a floor at a certain height, making the ball bounce
 - air friction is considered for the ball
 
+#### Design
+- domains
+    - Physics domain (core domain)
+- bounded contexts
+    - Simulation context
+- actors and user stories
+    - Player actor
+        - Run Simulation feature
+- ports and use cases
+    - Simulation port (primary)
+        - Run Simulation use case
+    - Time port (secondary)
+    - **Configuration port (secondary): get configuration values**
+- adapters
+    - Console client
+        - Simulation port
+    - System Time driver (Time port)
+    - **Cli Configuration driver (Configuration port): get configuration values from command line arguments**
 
 ### Iteration 3
 
