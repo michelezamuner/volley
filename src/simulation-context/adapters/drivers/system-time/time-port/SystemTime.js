@@ -1,15 +1,14 @@
+const SimpleTime = require('../../../../../../lib/time/SimpleTime');
+
 /**
- * @package SimulationContext.Adapters.Drivers.Time.TimePort
+ * @package SimulationContext.Adapters.Drivers.SystemTime.TimePort
  * @requires SimulationContext.Application.TimePort.SimulationTime
  * @requires Time.SimpleTime
  * @implements SimulationTime
  */
-module.exports = class Time {
-    /**
-     * @param {SimpleTime} time 
-     */
-    constructor(time) {
-        this._time = time;
+module.exports = class SystemTime {
+    constructor() {
+        this._time = new SimpleTime();
     }
 
     /**

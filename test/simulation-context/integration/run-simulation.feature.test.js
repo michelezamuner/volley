@@ -4,7 +4,8 @@ jest.setTimeout(15000);
 
 test('ball is free falling', async () => {
     const args = [
-        '--ball-pos=200'
+        '--ball-mass=5',
+        '--ball-pos=200',
     ];
     const expected = [
         200,
@@ -20,8 +21,9 @@ test('ball is free falling', async () => {
 
 test('ball is bouncing on the floor', async () => {
     const args = [
+        '--ball-mass=5',
         '--ball-pos=50',
-        '--floor-pos=0'
+        '--floor-pos=0',
     ];
     const expected = [
         50,
