@@ -8,31 +8,32 @@ module.exports = class Time {
      */
     constructor(provider) {
         this._provider = provider;
-        this._start = null;
+        this._lastIntervalStart = null;
     }
 
     start() {
         if (this.isRunning()) {
             throw 'Cannot start again time that is already running';
         }
-        this._start = this._provider.getCurrentTimeInSeconds();
+        this._lastIntervalStart = this._provider.getCurrentTimeInSeconds();
     }
 
     /**
      * @return {bool}
      */
     isRunning() {
-        return this._start !== null;
+        return this._lastIntervalStart !== null;
     }
 
-    /**
-     * @return {number}
-     */
-    current() {
+    tick() {
         if (!this.isRunning()) {
             throw 'Cannot use time that is not running';
         }
-        
-        return this._provider.getCurrentTimeInSeconds() - this._start;
+
+        const current = this._provider.getCurrentTimeInSeconds();
+        const interval = current - this._lastIntervalStart;
+        this._lastIntervalStart = current;
+
+        return interval;
     }
 };

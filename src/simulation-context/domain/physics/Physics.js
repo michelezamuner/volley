@@ -4,6 +4,11 @@
  * @requires SimulationContext.Domain.Physics.ActionableConstraint
  */
 module.exports = class Physics {
+    /**
+     * @const {int}
+     */
+    static get G() { return -9.8066; }
+    
     constructor() {
         this._field = null;
         this._body = null;
