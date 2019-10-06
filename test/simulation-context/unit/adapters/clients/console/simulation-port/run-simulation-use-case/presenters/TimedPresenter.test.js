@@ -14,14 +14,17 @@ test('renders positions once per second', () => {
     const position = 1234;
 
     presenter.present(position);
-    expect(view.render).toHaveBeenNthCalledWith(1, position);
+    expect(view.render).toHaveBeenCalledTimes(1);
+    expect(view.render.mock.calls[0][0]).toBe(position);
 
     presenter.present(position);
-    expect(view.render).toHaveBeenNthCalledWith(1, position);
+    expect(view.render).toHaveBeenCalledTimes(1);
 
     presenter.present(position);
-    expect(view.render).toHaveBeenNthCalledWith(2, position);
+    expect(view.render).toHaveBeenCalledTimes(2);
+    expect(view.render.mock.calls[1][0]).toBe(position);
 
     presenter.present(position);
-    expect(view.render).toHaveBeenNthCalledWith(3, position);
+    expect(view.render).toHaveBeenCalledTimes(3);
+    expect(view.render.mock.calls[2][0]).toBe(position);
 });

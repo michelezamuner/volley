@@ -15,13 +15,13 @@ test('ball is free falling', async () => {
         77.4175,
         23.4812,
     ];
-    await expect('ball-is-free-falling', args, expected);
+    await expect('ball-is-free-falling', 7, args, expected);
 });
 
-test.skip('ball is bouncing on the floor', async () => {
+test('ball is bouncing on the floor', async () => {
     const args = [
         '--ball-pos=50',
-        '--with-floor'
+        '--floor-pos=0'
     ];
     const expected = [
         50,
@@ -35,5 +35,5 @@ test.skip('ball is bouncing on the floor', async () => {
         37.2367,
         16.5115,
     ];
-    await expect('ball-is-bouncing-on-the-floor', args, expected);
+    await expect('ball-is-bouncing-on-the-floor', 10, args, expected);
 });

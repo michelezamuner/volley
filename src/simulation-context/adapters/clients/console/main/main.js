@@ -14,6 +14,7 @@ module.exports = function main() {
     const args = process.argv.slice(2);
     let ballMass = 5;
     let ballPos = 200;
+    let floorPos = null;
     for (const arg of args) {
         if (arg.startsWith('--ball-mass=')) {
             ballMass = Number.parseFloat(arg.substring(12));
@@ -21,10 +22,13 @@ module.exports = function main() {
         if (arg.startsWith('--ball-pos=')) {
             ballPos = Number.parseFloat(arg.substring(11));
         }
+        if (arg.startsWith('--floor-pos=')) {
+            floorPos = Number.parseFloat(arg.substring(12));
+        }
     }
 
     const service = new SimulationService(
-        new ImmediateConfiguration(ballMass, ballPos),
+        new ImmediateConfiguration(ballMass, ballPos, floorPos),
         new BodyFactory(),
         new Time(new TimeDriver(new SimpleTime()))
     );

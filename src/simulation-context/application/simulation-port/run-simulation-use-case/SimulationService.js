@@ -3,7 +3,9 @@
  * @requires SimulationContext.Application.ConfigurationPort.Configuration
  * @requires SimulationContext.Domain.Physics.BodyFactory
  * @requires SimulationContext.Domain.Physics.Body
+ * @requires SimulationContext.Domain.Physics.Constraint
  * @requires SimulationContext.Domain.Physics.Time
+ * @requires SimulationContext.Domain.Physics.Physics
  */
 module.exports = class SimulationService {
     /**
@@ -26,9 +28,15 @@ module.exports = class SimulationService {
      * @param {Function} callback 
      */
     run(callback) {
+        const physics = this._factory.createPhysics();
         /** @type {Body} */
-        const ball = this._factory.create(this._conf.getBallMass(), this._conf.getBallPos());
-        const gravity = this._conf.getBallMass() * SimulationService.G;
+        const ball = this._factory.createBody(this._conf.getBallMass(), this._conf.getBallPos());
+
+        physics.setField(this._conf.getBallMass() * SimulationService.G);
+        physics.setBody(ball);
+        if (this._conf.getFloorPos() !== null) {
+            physics.setConstraint(this._factory.createConstraint(this._conf.getFloorPos()));
+        }
 
         this._time.start();
         let lastIntervalStart = 0;
@@ -38,7 +46,7 @@ module.exports = class SimulationService {
             const current = this._time.current();
             const interval = current - lastIntervalStart;
             lastIntervalStart = current;
-            ball.apply(gravity, interval);
+            physics.resolve(interval);
             
             callback(ball);
         }

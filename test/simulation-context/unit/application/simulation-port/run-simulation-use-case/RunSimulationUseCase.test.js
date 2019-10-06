@@ -16,5 +16,5 @@ test('runs simulation and presents ball positions', () => {
 
     useCase.runSimulation();
 
-    expect(presenter.present).toBeCalledWith(pos);
+    expect(presenter.present.mock.calls[0][0]).toBe(pos);
 });
