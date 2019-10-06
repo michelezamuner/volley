@@ -1,12 +1,11 @@
-const promisify = require('util').promisify;
-const exec = promisify(require('child_process').exec);
+const expect = require('./expect');
 
 jest.setTimeout(15000);
 
-test('logging the positions of the ball', async () => {
-    const script = __dirname + '/run-simulation.sh';
-    const output = await exec(`bash ${script}`);
-
+test('ball is free falling', async () => {
+    const args = [
+        '--ball-pos=200'
+    ];
     const expected = [
         200,
         195.0967,
@@ -16,11 +15,25 @@ test('logging the positions of the ball', async () => {
         77.4175,
         23.4812,
     ];
-    const positions = output.stdout.trim().split("\n").map(Number.parseFloat);
+    await expect('ball-is-free-falling', args, expected);
+});
 
-    const u = 0.05;
-    for (const i in expected) {
-        expect(positions[i]).toBeGreaterThanOrEqual(expected[i] - u);
-        expect(positions[i]).toBeLessThanOrEqual(expected[i] + u);
-    }
+test.skip('ball is bouncing on the floor', async () => {
+    const args = [
+        '--ball-pos=50',
+        '--with-floor'
+    ];
+    const expected = [
+        50,
+        45.0967,
+        30.3868,
+        5.8703,
+        22.0711,
+        40.5724,
+        49.2671,
+        48.1552,
+        37.2367,
+        16.5115,
+    ];
+    await expect('ball-is-bouncing-on-the-floor', args, expected);
 });
