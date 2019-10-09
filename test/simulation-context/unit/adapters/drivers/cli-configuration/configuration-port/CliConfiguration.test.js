@@ -17,14 +17,14 @@ test('provide cli configuration values', () => {
         `--ball-mass=${ballMass}`,
         `--ball-pos=${ballPos}`,
         `--floor-pos=${floorPos}`,
-        `--air-friction=${airViscosity}`,
+        `--air-viscosity=${airViscosity}`,
     ];
     const conf = new CliConfiguration(args);
 
     expect(conf.getBallMass()).toBe(ballMass);
     expect(conf.getBallPos()).toBe(ballPos);
     expect(conf.getFloorPos()).toBe(floorPos);
-    expect(conf.getAirViscosity()).toBe(airFriction);
+    expect(conf.getAirViscosity()).toBe(airViscosity);
 });
 
 test('provides null for inactive features', () => {
