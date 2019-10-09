@@ -47,6 +47,7 @@
 #### Requirements
 - there's a floor at a certain height, making the ball bounce
 - air friction is considered for the ball
+- elastic efficiency is considered for the ball
 
 #### Design
 - domains
@@ -70,8 +71,9 @@
 ### Iteration 3
 
 #### Requirements
-- a 2D graphical user interface is supported
-- the existing output is turned to a debug log
+- a 2D Web graphical user interface is supported
+- the ball can also move horizontally
+- the existing output is turned to a debug log, adding the horizontal position
 
 
 ### Iteration 4
