@@ -38,7 +38,7 @@ test('ball is bouncing on the floor', async () => {
     await expect('ball-is-bouncing-on-the-floor', seconds, args, expected);
 });
 
-test.skip('ball is bouncing on the floor with air friction', async () => {
+test('ball is bouncing on the floor with air friction', async () => {
     const x0 = 20;
     const m = 5;
     const g = 9.8066;
@@ -73,7 +73,7 @@ test.skip('ball is bouncing on the floor with air friction', async () => {
         '--ball-mass=5',
         `--ball-pos=${x0}`,
         '--floor-pos=0',
-        `--air-friction=${h}`,
+        `--air-viscosity=${h}`,
     ];
 
     await expect('ball-is-bouncing-on-the-floor-with-air-friction', seconds, args, expected);

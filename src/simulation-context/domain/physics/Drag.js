@@ -1,4 +1,4 @@
 /**
  * @package SimulationContext.Domain.Physics
- * @interface Constraint
+ * @interface Drag
  */

@@ -5,7 +5,7 @@ const config = {
     coverageDirectory: '/tmp',
     coveragePathIgnorePatterns: [
         // Factories
-        'BodyFactory\.js',
+        'PhysicsFactory\.js',
         // Humble objects
         'ConsoleLogView\.js',
         // Wrappers of static types

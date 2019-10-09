@@ -24,14 +24,16 @@ Feature: Run simulation
             """
 
     Scenario: Ball is bouncing on the floor with air friction
-        Given there is a ball with initial position "20"
+        Given there is a ball with initial position "20" and mass "5"
         And there is gravity
         And there is a floor at position "0"
-        And there is air friction whose coefficient h is "0.5"
+        And there is air friction with air viscosity of "0.5"
         When the Player runs the simulation
         Then the ball positions at each second are logged
         And the ball positions are described by the model:
             """
+            m = ball mass
+            h = air viscosity
             k = h/m
             tb = time at bounce (lacks closed-form solution)
             vb = velocity at bounce (lacks closed-form solution)

@@ -8,20 +8,10 @@ module.exports = class CliConfiguration {
      * @param {Array} args
      */
     constructor(args) {
-        this._ballMass = null;
-        this._ballPos = null;
-        this._floorPos = null;
-        for (const arg of args) {
-            if (arg.startsWith('--ball-mass=')) {
-                this._ballMass = Number.parseFloat(arg.substring(12));
-            }
-            if (arg.startsWith('--ball-pos=')) {
-                this._ballPos = Number.parseFloat(arg.substring(11));
-            }
-            if (arg.startsWith('--floor-pos=')) {
-                this._floorPos = Number.parseFloat(arg.substring(12));
-            }
-        }
+        this._ballMass = this._parse(args, '--ball-mass=');
+        this._ballPos = this._parse(args, '--ball-pos=');
+        this._floorPos = this._parse(args, '--floor-pos=');
+        this._airViscosity = this._parse(args, '--air-viscosity=');
     }
 
     /**
@@ -43,5 +33,28 @@ module.exports = class CliConfiguration {
      */
     getFloorPos() {
         return this._floorPos;
+    }
+
+    /**
+     * @override
+     */
+    getAirViscosity() {
+        return this._airViscosity;
+    }
+
+    /**
+     * @param {Array} args
+     * @param {string} name
+     * @return {Number|null}
+     */
+    _parse(args, name) {
+        const size = name.length;
+        for (const arg of args) {
+            if (arg.startsWith(name)) {
+                return Number.parseFloat(arg.substring(size));
+            }
+        }
+
+        return null;
     }
 };
