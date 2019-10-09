@@ -1,14 +1,5 @@
 const ActionableBody = require('../../../../../src/simulation-context/domain/physics/ActionableBody');
 
-test('is of type Body', () => {
-    const body = new ActionableBody(/* mass: */5);
-
-    expect(body.getMass).toBeDefined();
-    expect(body.getPosition).toBeDefined();
-    expect(body.getVelocity).toBeDefined();
-    expect(body.getAcceleration).toBeDefined();
-});
-
 test('defaults cinematic properties to zero', () => {
     const body = new ActionableBody(/* mass: */5);
 

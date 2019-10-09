@@ -1,5 +1,6 @@
 const CliConfiguration = require('../../../drivers/cli-configuration/configuration-port/CliConfiguration');
 const PhysicsFactory = require('../../../../domain/physics/PhysicsFactory');
+const Physics = require('../../../../domain/physics/Physics');
 const Time = require('../../../../domain/physics/Time');
 const SystemTime = require('../../../drivers/system-time/time-port/SystemTime');
 const PresenterTime = require('../simulation-port/run-simulation-use-case/presenters/PresenterTime');
@@ -12,7 +13,7 @@ const Controller = require('../simulation-port/run-simulation-use-case/controlle
 module.exports = function main() {
     const service = new SimulationService(
         new CliConfiguration(process.argv.slice(2)),
-        new PhysicsFactory(),
+        new Physics(new PhysicsFactory()),
         new Time(new SystemTime())
     );
     const presenter = new SimulationPresenter(new ConsoleLogView(), new PresenterTime());

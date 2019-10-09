@@ -8,9 +8,16 @@ module.exports = class Time {
      */
     constructor(provider) {
         this._provider = provider;
+
+        /**
+         * @var {null|Number}
+         */
         this._lastIntervalStart = null;
     }
 
+    /**
+     * @throws
+     */
     start() {
         if (this.isRunning()) {
             throw 'Cannot start again time that is already running';
@@ -25,6 +32,9 @@ module.exports = class Time {
         return this._lastIntervalStart !== null;
     }
 
+    /**
+     * @throws
+     */
     tick() {
         if (!this.isRunning()) {
             throw 'Cannot use time that is not running';

@@ -1,9 +1,5 @@
 const ActionableDrag = require('../../../../../src/simulation-context/domain/physics/ActionableDrag');
 
-// test('is of type Drag', () => {
-//     const drag = new ActionableDrag(/* viscosity: */0.5);
-// });
-
 test('applies drag to body', () => {
     const bodyMass = 5;
     const bodyVelocity = 10;

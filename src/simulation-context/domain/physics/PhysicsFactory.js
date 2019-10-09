@@ -1,5 +1,6 @@
 const Physics = require('./Physics');
 const ActionableBody = require('./ActionableBody');
+const ActionableField = require('./ActionableField');
 const ActionableConstraint = require('./ActionableConstraint');
 const ActionableDrag = require('./ActionableDrag');
 
@@ -7,8 +8,6 @@ const ActionableDrag = require('./ActionableDrag');
  * @package SimulationContext.Domain.Physics
  * @requires SimulationContext.Domain.Physics.Physics
  * @requires SimulationContext.Domain.Physics.Body
- * @requires SimulationContext.Domain.Physics.Constraint
- * @requires SimulationContext.Domain.Physics.Drag
  * @requires SimulationContext.Domain.Physics.ActionableBody
  * @requires SimulationContext.Domain.Physics.ActionableConstraint
  * @requires SimulationContext.Domain.Physics.ActionableDrag
@@ -22,25 +21,33 @@ module.exports = class PhysicsFactory {
     }
 
     /**
-     * @param {number} mass
-     * @param {number} position
-     * @return {Body}
+     * @param {Number} mass
+     * @param {Number} pos
+     * @return {ActionableBody}
      */
-    createBody(mass, position) {
-        return new ActionableBody(mass, position);
+    createBody(mass, pos) {
+        return new ActionableBody(mass, pos);
     }
 
     /**
-     * @param {number} position
-     * @return {Constraint}
+     * @param {Number} force
+     * @return {ActionableField}
      */
-    createConstraint(position) {
-        return new ActionableConstraint(position);
+    createField(force) {
+        return new ActionableField(force);
+    }
+
+    /**
+     * @param {Number} pos
+     * @return {ActionableConstraint}
+     */
+    createConstraint(pos) {
+        return new ActionableConstraint(pos);
     }
 
     /**
      * @param {Number} viscosity
-     * @return {Drag}
+     * @return {ActionableDrag}
      */
     createDrag(viscosity) {
         return new ActionableDrag(viscosity);
