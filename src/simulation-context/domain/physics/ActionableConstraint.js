@@ -6,22 +6,15 @@
  */
 module.exports = class ActionableConstraint {
     /**
-     * @param {number} position 
+     * @param {Number} position 
      */
-    constructor(position = 0) {
+    constructor(position) {
         this._position = position;
     }
 
     /**
-     * @override
-     */
-    getPosition() {
-        return this._position;
-    }
-
-    /**
      * @param {Body} body 
-     * @param {number} interval 
+     * @param {Number} interval 
      */
     apply(body, interval) {
         if (body.getPosition() > this._position) {

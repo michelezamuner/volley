@@ -34,6 +34,9 @@ module.exports = class SimulationService {
         if (this._conf.getFloorPos() !== null) {
             physics.setConstraint(this._factory.createConstraint(this._conf.getFloorPos()));
         }
+        if (this._conf.getAirViscosity() !== null) {
+            physics.setDrag(this._factory.createDrag(this._conf.getAirViscosity()));
+        }
 
         this._time.start();
         while (this._time.isRunning()) {

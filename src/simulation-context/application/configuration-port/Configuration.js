@@ -1,7 +1,8 @@
 /**
  * @package SimulationContext.Application.ConfigurationPort
  * @interface Configuration
- * @method getBallMass(): {number}
- * @method getBallPos(): {number}
- * @method getFloorPos(): {number|null}
+ * @method getBallMass(): {Number}
+ * @method getBallPos(): {Number}
+ * @method getFloorPos(): {Number|null}
+ * @method getAirViscosity(): {Number|null}
  */

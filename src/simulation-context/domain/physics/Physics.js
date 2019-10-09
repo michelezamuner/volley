@@ -2,6 +2,7 @@
  * @package SimulationContext.Domain.Physics
  * @requires SimulationContext.Domain.Physics.ActionableBody
  * @requires SimulationContext.Domain.Physics.ActionableConstraint
+ * @requires SimulationContext.Domain.Physics.ActionableDrag
  */
 module.exports = class Physics {
     /**
@@ -13,6 +14,7 @@ module.exports = class Physics {
         this._field = null;
         this._body = null;
         this._constraint = null;
+        this._drag = null;
     }
 
     /**
@@ -37,12 +39,22 @@ module.exports = class Physics {
     }
 
     /**
+     * @param {ActionableDrag} drag 
+     */
+    setDrag(drag) {
+        this._drag = drag;
+    }
+
+    /**
      * @param {number} interval 
      */
     resolve(interval) {
         this._body.apply(this._field);
         if (this._constraint) {
             this._constraint.apply(this._body, interval);
+        }
+        if (this._drag) {
+            this._drag.apply(this._body);
         }
         this._body.resolve(interval);
     }
