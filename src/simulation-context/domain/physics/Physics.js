@@ -1,61 +1,86 @@
 /**
  * @package SimulationContext.Domain.Physics
+ * @requires SimulationContext.Domain.Physics.PhysicsFactory
+ * @requires SimulationContext.Domain.Physics.Body
  * @requires SimulationContext.Domain.Physics.ActionableBody
+ * @requires SimulationContext.Domain.Physics.ActionableField
  * @requires SimulationContext.Domain.Physics.ActionableConstraint
  * @requires SimulationContext.Domain.Physics.ActionableDrag
  */
 module.exports = class Physics {
     /**
-     * @const {int}
+     * @param {PhysicsFactory} factory 
      */
-    static get G() { return -9.8066; }
-    
-    constructor() {
-        this._field = null;
+    constructor(factory) {
+        this._factory = factory;
+
+        /**
+         * @var {null|ActionableBody}
+         */
         this._body = null;
+
+        /**
+         * @var {null|ActionableField}
+         */
+        this._field = null;
+
+        /**
+         * @var {null|ActionableConstraint}
+         */
         this._constraint = null;
+
+        /**
+         * @var {null|ActionableDrag}
+         */
         this._drag = null;
     }
 
     /**
-     * @param {number} field 
+     * @param {Number} mass
+     * @param {Number} pos
+     * @return {Body}
      */
-    setField(field) {
-        this._field = field;
+    addBody(mass, pos) {
+        this._body = this._factory.createBody(mass, pos);
+
+        return this._body;
     }
 
     /**
-     * @param {ActionableBody} body 
+     * @param {Number} force
      */
-    setBody(body) {
-        this._body = body;
+    addField(force) {
+        this._field = this._factory.createField(force);
     }
 
     /**
-     * @param {ActionableConstraint} constraint 
+     * @param {Number} pos
      */
-    setConstraint(constraint) {
-        this._constraint = constraint;
+    addConstraint(pos) {
+        this._constraint = this._factory.createConstraint(pos);
     }
 
     /**
-     * @param {ActionableDrag} drag 
+     * @param {Number} viscosity 
      */
-    setDrag(drag) {
-        this._drag = drag;
+    addDrag(viscosity) {
+        this._drag = this._factory.createDrag(viscosity);
     }
 
     /**
-     * @param {number} interval 
+     * @param {Number} interval 
      */
     resolve(interval) {
-        this._body.apply(this._field);
+        if (this._field) {
+            this._field.apply(this._body);
+        }
         if (this._constraint) {
             this._constraint.apply(this._body, interval);
         }
         if (this._drag) {
             this._drag.apply(this._body);
         }
+
         this._body.resolve(interval);
     }
 };

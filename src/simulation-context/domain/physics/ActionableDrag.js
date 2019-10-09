@@ -1,8 +1,6 @@
 /**
  * @package SimulationContext.Domain.Physics
- * @requires SimulationContext.Domain.Physics.Drag
- * @requires SimulationContext.Domain.Physics.Body
- * @implements Drag
+ * @requires SimulationContext.Domain.Physics.ActionableBody
  */
 module.exports = class ActionableDrag {
     /**
@@ -13,7 +11,7 @@ module.exports = class ActionableDrag {
     }
 
     /**
-     * @param {Body} body
+     * @param {ActionableBody} body
      */
     apply(body) {
         body.apply(-this._viscosity * body.getVelocity());

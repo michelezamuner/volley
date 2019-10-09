@@ -1,8 +1,6 @@
 /**
  * @package SimulationContext.Domain.Physics
- * @requires SimulationContext.Domain.Physics.Constraint
  * @requires SimulationContext.Domain.Physics.Body
- * @implements Constraint
  */
 module.exports = class ActionableConstraint {
     /**

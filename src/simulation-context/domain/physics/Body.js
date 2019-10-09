@@ -1,8 +1,8 @@
 /**
  * @package SimulationContext.Domain.Physics
  * @interface Body
- * @method getMass(): {number}
- * @method getPosition(): {number}
- * @method getVelocity(): {number}
- * @method getAcceleration(): {number}
+ * @method getMass(): {Number}
+ * @method getPosition(): {Number}
+ * @method getVelocity(): {Number}
+ * @method getAcceleration(): {Number}
  */
