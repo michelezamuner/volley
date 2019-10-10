@@ -8,11 +8,21 @@ test('defaults cinematic properties to zero', () => {
     expect(body.getAcceleration()).toBe(0);
 });
 
-test('exposes mass', () => {
+test('defaults elasticity to one', () => {
+    const body1 = new ActionableBody(/* mass: */5);
+    expect(body1.getElasticity()).toBe(1);
+
+    const body2 = new ActionableBody(/* mass: */5, /* elasticity: */null);
+    expect(body2.getElasticity()).toBe(1);
+});
+
+test('exposes mass and elasticity', () => {
     const mass = 5;
-    const body = new ActionableBody(mass);
+    const elasticity = 0.5;
+    const body = new ActionableBody(mass, elasticity);
 
     expect(body.getMass()).toBe(mass);
+    expect(body.getElasticity()).toBe(elasticity);
 });
 
 test('resolves simulation step with no force applied', () => {
@@ -20,7 +30,7 @@ test('resolves simulation step with no force applied', () => {
     const interval = 0.1;
     const initialPosition = 10;
     const finalPosition = 10.5; 
-    const body = new ActionableBody(/* mass: */5, initialPosition, velocity);
+    const body = new ActionableBody(/* mass: */5, /* elasticity: */null, initialPosition, velocity);
 
     body.resolve(interval);
 
@@ -46,7 +56,7 @@ test('resolves simulation step with one force applied', () => {
         const initialVelocity = example[1];
         const finalPosition = example[2];
         const finalVelocity = example[3];
-        const body = new ActionableBody(mass, initialPosition, initialVelocity);
+        const body = new ActionableBody(mass, /* elasticity: */null, initialPosition, initialVelocity);
 
         body.apply(force);
         body.resolve(interval);
@@ -77,7 +87,7 @@ test('resolves simulation step with multiple forces applied', () => {
         const initialVelocity = example[1];
         const finalPosition = example[2];
         const finalVelocity = example[3];
-        const body = new ActionableBody(mass, initialPosition, initialVelocity);
+        const body = new ActionableBody(mass, /* elasticity: */null, initialPosition, initialVelocity);
 
         for (const force of forces) {
             body.apply(force);
@@ -99,7 +109,7 @@ test('clears force after resolution', () => {
     const force = 2;
     // velocity = force / mass * interval
     const expectedVelocity = 0.05;
-    const body = new ActionableBody(mass, /* position: */10, /* velocity: */0);
+    const body = new ActionableBody(mass, /* elasticity: */null, /* position: */10, /* velocity: */0);
     body.apply(force);
 
     body.resolve(interval);

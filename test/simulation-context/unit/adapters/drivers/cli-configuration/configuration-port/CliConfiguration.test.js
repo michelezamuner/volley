@@ -6,6 +6,7 @@ test('implements application configuration', () => {
     expect(conf.getBallPos).toBeDefined();
     expect(conf.getFloorPos).toBeDefined();
     expect(conf.getAirViscosity).toBeDefined();
+    expect(conf.getBallElasticity).toBeDefined();
 });
 
 test('provide cli configuration values', () => {
@@ -13,11 +14,13 @@ test('provide cli configuration values', () => {
     const ballPos = 100;
     const floorPos = 0;
     const airViscosity = 0.5;
+    const ballElasticity = 0.9;
     const args = [
         `--ball-mass=${ballMass}`,
         `--ball-pos=${ballPos}`,
         `--floor-pos=${floorPos}`,
         `--air-viscosity=${airViscosity}`,
+        `--ball-elasticity=${ballElasticity}`,
     ];
     const conf = new CliConfiguration(args);
 
@@ -25,6 +28,7 @@ test('provide cli configuration values', () => {
     expect(conf.getBallPos()).toBe(ballPos);
     expect(conf.getFloorPos()).toBe(floorPos);
     expect(conf.getAirViscosity()).toBe(airViscosity);
+    expect(conf.getBallElasticity()).toBe(ballElasticity);
 });
 
 test('provides null for inactive features', () => {
@@ -36,4 +40,5 @@ test('provides null for inactive features', () => {
 
     expect(conf.getFloorPos()).toBeNull();
     expect(conf.getAirViscosity()).toBeNull();
+    expect(conf.getBallElasticity()).toBeNull();
 });

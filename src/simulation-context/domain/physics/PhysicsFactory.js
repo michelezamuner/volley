@@ -22,11 +22,12 @@ module.exports = class PhysicsFactory {
 
     /**
      * @param {Number} mass
+     * @param {Number} elasticity
      * @param {Number} pos
      * @return {ActionableBody}
      */
-    createBody(mass, pos) {
-        return new ActionableBody(mass, pos);
+    createBody(mass, elasticity, pos) {
+        return new ActionableBody(mass, elasticity, pos);
     }
 
     /**

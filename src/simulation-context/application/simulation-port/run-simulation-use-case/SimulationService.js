@@ -24,7 +24,7 @@ module.exports = class SimulationService {
      */
     run(callback) {
         /** @type {Body} */
-        const ball = this._physics.addBody(this._conf.getBallMass(), this._conf.getBallPos());
+        const ball = this._physics.addBody(this._conf.getBallMass(), this._conf.getBallElasticity(), this._conf.getBallPos());
         this._physics.addField(-this._conf.getBallMass() * Constant.G);
         if (this._conf.getFloorPos() !== null) {
             this._physics.addConstraint(this._conf.getFloorPos());

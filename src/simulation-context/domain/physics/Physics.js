@@ -37,11 +37,12 @@ module.exports = class Physics {
 
     /**
      * @param {Number} mass
+     * @param {Number} elasticity
      * @param {Number} pos
      * @return {Body}
      */
-    addBody(mass, pos) {
-        this._body = this._factory.createBody(mass, pos);
+    addBody(mass, elasticity, pos) {
+        this._body = this._factory.createBody(mass, elasticity, pos);
 
         return this._body;
     }

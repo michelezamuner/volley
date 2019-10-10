@@ -5,4 +5,5 @@
  * @method getBallPos(): {Number}
  * @method getFloorPos(): {Number|null}
  * @method getAirViscosity(): {Number|null}
+ * @method getBallElasticity(): {Number|null}
  */

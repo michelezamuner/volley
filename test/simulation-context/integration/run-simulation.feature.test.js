@@ -44,15 +44,6 @@ test('ball is bouncing on the floor with air friction', async () => {
     const g = 9.8066;
     const h = 0.5;
     const k = h / m;
-    const root = (t0, ft, fdt) => {
-        let tbp = null;
-        let tbn = t0;
-        do {
-            tbp = tbn;
-            tbn = tbp - ft(tbp) / fdt(tbp);
-        } while (Math.abs(tbp - tbn) > 0.0001);
-        return tbn;
-    };
     // numerically calculate tb: tbn+1 = tbn - x(tbn)/x'(tbn)
     const tb = root(
         2,
@@ -78,3 +69,53 @@ test('ball is bouncing on the floor with air friction', async () => {
 
     await expect('ball-is-bouncing-on-the-floor-with-air-friction', seconds, args, expected);
 });
+
+test('ball is bouncing on the floor with air friction and non-perfect bounce', async () => {
+    const x0 = 20;
+    const m = 5;
+    const g = 9.8066;
+    const h = 0.5;
+    const k = h / m;
+    const u = 0.75;
+    // numerically calculate tb: tbn+1 = tbn - x(tbn)/x'(tbn)
+    const tb = root(
+        2,
+        t => x0 - g / (k * k) * (Math.exp(-k * t) - 1) - g / k * t,
+        t => g / k * (Math.exp(-k * t) - 1)
+    );
+    // calculate vb: v(t) = g/k * (e^(-k * t) - 1)
+    const vb = g / k * (Math.exp(-k * tb) - 1);
+    const model = t => {
+        if (t < tb) return x0 - g / (k * k) * (Math.exp(-k * t) - 1) - g / k * t;
+        t -= tb;
+        return (-u * vb * k + g) * (1 - Math.exp(-k * t)) / (k * k) - g / k * t;
+    };
+
+    const seconds = 5;
+    const expected = [...Array(seconds).keys()].map(model);
+    const args = [
+        '--ball-mass=5',
+        `--ball-pos=${x0}`,
+        '--floor-pos=0',
+        `--air-viscosity=${h}`,
+        `--ball-elasticity=${u}`,
+    ];
+
+    await expect('ball-is-bouncing-on-the-floor-with-air-friction-and-non-perfect-bounce', seconds, args, expected);
+});
+
+/**
+ * @param {Number} t0 
+ * @param {Function} ft 
+ * @param {Function} fdt 
+ */
+function root(t0, ft, fdt) {
+    let tbp = null;
+    let tbn = t0;
+    do {
+        tbp = tbn;
+        tbn = tbp - ft(tbp) / fdt(tbp);
+    } while (Math.abs(tbp - tbn) > 0.0001);
+
+    return tbn;
+}

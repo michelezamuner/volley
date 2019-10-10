@@ -15,11 +15,11 @@ module.exports = class ActionableConstraint {
      * @param {Number} interval 
      */
     apply(body, interval) {
-        if (body.getPosition() > this._position) {
+        if (body.getPosition() > this._position || body.getVelocity() > 0) {
             return;
         }
 
-        const impulse = -2 * body.getMass() * body.getVelocity() / interval;
+        const impulse = -1 * body.getMass() * body.getVelocity() * (1 + body.getElasticity()) / interval;
         body.apply(impulse);
     }
 };

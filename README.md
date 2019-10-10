@@ -47,7 +47,7 @@
 #### Requirements
 - there's a floor at a certain height, making the ball bounce
 - air friction is considered for the ball
-- elastic efficiency is considered for the ball
+- elasticity of the ball is not perfect
 
 #### Design
 - domains
