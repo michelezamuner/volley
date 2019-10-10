@@ -14,12 +14,7 @@ const ballPos = 123;
 /**
  * @var {Object|SimulationContext.Application.ConfigurationPort.Configuration}
  */
-const conf = {
-    getBallMass() { return ballMass; },
-    getBallPos() { return ballPos; },
-    getFloorPos() { return null; },
-    getAirViscosity() { return null; },
-};
+const conf = {};
 
 /**
  * @var {Object|SimulationContext.Domain.Physics.Body}
@@ -30,8 +25,8 @@ const ball = {};
  * @var {Object|SimulationContext.Domain.Physics.Physics}
  */
 const physics = {
-    addBody(mass, pos) {
-        return mass === ballMass && pos === ballPos ? ball : null;
+    addBody(mass, elasticity, pos) {
+        return mass === ballMass && elasticity === conf.getBallElasticity() && pos === ballPos  ? ball : null;
     },
     addField: jest.fn(),
     addConstraint: jest.fn(),
@@ -74,6 +69,11 @@ let service = null;
 beforeEach(() => {
     resolutions = 0;
     ticks = 0;
+    conf.getBallMass = () => ballMass;
+    conf.getBallPos = () => ballPos;
+    conf.getBallElasticity = () => null;
+    conf.getFloorPos = () => null;
+    conf.getAirViscosity = () => null;
     physics.resolve = jest.fn(() => resolutions++);
     time.start = jest.fn();
     callback = jest.fn(arg => {
@@ -97,13 +97,15 @@ test('runs basic physics simulation', () => {
     expect(physics.addField.mock.calls[0][0]).toBe(-ballMass * Constant.G);
 });
 
-test('runs physics simulation with floor', () => {
-    const floorPos = 0;
-    conf.getFloorPos = () => floorPos;
+test('runs physics simulation with floor and elasticity', () => {
+    const pos = 0;
+    const elasticity = 0.5;
+    conf.getFloorPos = () => pos;
+    conf.getBallElasticity = () => elasticity;
 
     service.run(callback);
 
-    expect(physics.addConstraint.mock.calls[0][0]).toBe(floorPos);
+    expect(physics.addConstraint.mock.calls[0][0]).toBe(pos);
 });
 
 test('runs physics simulation with air friction', () => {

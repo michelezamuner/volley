@@ -1,26 +1,6 @@
 const Physics = require('../../../../../src/simulation-context/domain/physics/Physics');
 const Constant = require('../../../../../src/simulation-context/domain/physics/Constant');
 
-// /**
-//  * @var {Number}
-//  */
-// const interval = 0.1;
-
-// /**
-//  * @var {Number}
-//  */
-// const field = 5;
-
-// /**
-//  * @var {Object|SimulationContext.Domain.Physics.Body}
-//  */
-// const body = {};
-
-// /**
-//  * @var {Object|SimulationContext.Domain.Physics.ActionableBody}
-//  */
-// const actionableBody = {};
-
 /**
  * @var {Number}
  */
@@ -30,6 +10,11 @@ const interval = 0.5;
  * @var {Number}
  */
 const bodyMass = 5;
+
+/**
+ * @var {Number}
+ */
+const bodyElasticity = 0.5;
 
 /**
  * @var {Number}
@@ -45,8 +30,8 @@ const body = {};
  * @var {Object|SimulationContext.Domain.Physics.PhysicsFactory}
  */
 const factory = {
-    createBody(mass, pos) {
-        return mass === bodyMass && pos === bodyPos ? body : null;
+    createBody(mass, elasticity, pos) {
+        return mass === bodyMass && elasticity === bodyElasticity && pos === bodyPos ? body : null;
     }
 };
 
@@ -61,7 +46,7 @@ beforeEach(() => {
 });
 
 test('returns added body', () => {
-    expect(physics.addBody(bodyMass, bodyPos)).toBe(body);
+    expect(physics.addBody(bodyMass, bodyElasticity, bodyPos)).toBe(body);
 });
 
 test('resolves body with field', () => {
@@ -71,7 +56,7 @@ test('resolves body with field', () => {
     };
     factory.createField = force => force === fieldForce ? field : null;
 
-    physics.addBody(bodyMass, bodyPos);
+    physics.addBody(bodyMass, bodyElasticity, bodyPos);
     physics.addField(fieldForce);
     physics.resolve(interval);
 
@@ -86,7 +71,7 @@ test('resolves body with constraint', () => {
     };
     factory.createConstraint = pos => pos === constraintPos ? constraint : null;
 
-    physics.addBody(bodyMass, bodyPos);
+    physics.addBody(bodyMass, bodyElasticity, bodyPos);
     physics.addConstraint(constraintPos);
     physics.resolve(interval);
 
@@ -102,7 +87,7 @@ test('resolves body with drag', () => {
     };
     factory.createDrag = viscosity => viscosity === dragViscosity ? drag : null;
 
-    physics.addBody(bodyMass, bodyPos);
+    physics.addBody(bodyMass, bodyElasticity, bodyPos);
     physics.addDrag(dragViscosity);
     physics.resolve(interval);
 

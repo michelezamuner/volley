@@ -5,12 +5,19 @@
  */
 module.exports = class ActionableBody {
     /**
+     * @constant {Number}
+     */
+    static get DEFAULT_ELASTICITY() { return 1; }
+
+    /**
      * @param {Number} mass
+     * @param {Number} elasticity
      * @param {Number} position
      * @param {Number} velocity
      */
-    constructor(mass, position = 0, velocity = 0) {
+    constructor(mass, elasticity = ActionableBody.DEFAULT_ELASTICITY, position = 0, velocity = 0) {
         this._mass = mass;
+        this._elasticity = elasticity === null ? ActionableBody.DEFAULT_ELASTICITY : elasticity;
         this._position = position;
         this._velocity = velocity;
 
@@ -30,6 +37,13 @@ module.exports = class ActionableBody {
      */
     getMass() {
         return this._mass;
+    }
+
+    /**
+     * @override
+     */
+    getElasticity() {
+        return this._elasticity;
     }
 
     /**

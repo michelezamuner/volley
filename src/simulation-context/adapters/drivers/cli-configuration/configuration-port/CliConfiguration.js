@@ -8,10 +8,30 @@ module.exports = class CliConfiguration {
      * @param {Array} args
      */
     constructor(args) {
+        /**
+         * @var {Number|null}
+         */
         this._ballMass = this._parse(args, '--ball-mass=');
+
+        /**
+         * @var {Number|null}
+         */
         this._ballPos = this._parse(args, '--ball-pos=');
+
+        /**
+         * @var {Number|null}
+         */
         this._floorPos = this._parse(args, '--floor-pos=');
+
+        /**
+         * @var {Number|null}
+         */
         this._airViscosity = this._parse(args, '--air-viscosity=');
+
+        /**
+         * @var {Number|null}
+         */
+        this._ballElasticity = this._parse(args, '--ball-elasticity=');
     }
 
     /**
@@ -40,6 +60,13 @@ module.exports = class CliConfiguration {
      */
     getAirViscosity() {
         return this._airViscosity;
+    }
+
+    /**
+     * @override
+     */
+    getBallElasticity() {
+        return this._ballElasticity;
     }
 
     /**
