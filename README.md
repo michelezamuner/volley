@@ -42,7 +42,7 @@
     - **System Time driver (Time port): provides the system time**
 
 
-### Iteration 2
+### Iteration 2 &#x2705;
 
 #### Requirements
 - there's a floor at a certain height, making the ball bounce
@@ -73,7 +73,8 @@
 #### Requirements
 - a 2D Web graphical user interface is supported
 - the ball can also move horizontally
-- the existing output is turned to a debug log, adding the horizontal position
+- ball positions are also printed to the browser's console in debug mode
+- the existing console client is turned into a debug client, used to run automated tests, adding the horizontal position
 
 
 ### Iteration 4

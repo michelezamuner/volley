@@ -22,7 +22,7 @@ module.exports = class Time {
         if (this.isRunning()) {
             throw 'Cannot start again time that is already running';
         }
-        this._lastIntervalStart = this._provider.getCurrentTimeInSeconds();
+        this._lastIntervalStart = this._provider.getProgressiveTime();
     }
 
     /**
@@ -40,7 +40,7 @@ module.exports = class Time {
             throw 'Cannot use time that is not running';
         }
 
-        const current = this._provider.getCurrentTimeInSeconds();
+        const current = this._provider.getProgressiveTime();
         const interval = current - this._lastIntervalStart;
         this._lastIntervalStart = current;
 
