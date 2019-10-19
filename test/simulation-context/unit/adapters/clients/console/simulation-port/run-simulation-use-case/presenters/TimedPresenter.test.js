@@ -7,7 +7,7 @@ test('renders positions once per second', () => {
     const times = [1.2325433, 1.3435433, 2.4566758, 3.3676544];
     let calls = 0;
     const time = {
-        now() { return times[calls++]; },
+        getProgressiveTime() { return times[calls++]; },
     };
 
     const presenter = new TimedPresenter(view, time);

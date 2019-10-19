@@ -1,14 +1,14 @@
 /**
  * @package SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters
  * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters.TimedPresenterView
- * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters.Time
  * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.SimulationPresenter
+ * @requires SimulationContext.Application.TimePort.SimulationTime
  * @implements SimulationPresenter
  */
 module.exports = class TimedPresenter {
     /**
      * @param {TimedPresenterView} view 
-     * @param {Time} time 
+     * @param {SimulationTime} time 
      */
     constructor(view, time) {
         this._view = view;
@@ -21,14 +21,14 @@ module.exports = class TimedPresenter {
      */
     present(position) {
         if (this._lastIntervalStart === null) {
-            this._lastIntervalStart = this._time.now();
+            this._lastIntervalStart = this._time.getProgressiveTime();
             this._view.render(position);
 
             return;
         }
 
         const step = 1;
-        if (this._time.now() >= this._lastIntervalStart + step) {
+        if (this._time.getProgressiveTime() >= this._lastIntervalStart + step) {
             this._lastIntervalStart += step;
             this._view.render(position);
         }

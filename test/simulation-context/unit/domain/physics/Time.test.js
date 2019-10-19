@@ -2,7 +2,7 @@ const Time = require('../../../../../src/simulation-context/domain/physics/Time'
 
 test('tells if is running', () => {
     const provider = {
-        getCurrentTimeInSeconds() { return 0; }
+        getProgressiveTime() { return 0; }
     };
     const time = new Time(provider);
 
@@ -16,7 +16,7 @@ test('provides consecutive intervals after having being started', () => {
     let call = 0;
     const times = [1.1234, 2.4235, 4.5632];
     const provider = {
-        getCurrentTimeInSeconds() { return times[call++]; },
+        getProgressiveTime() { return times[call++]; },
     };
     const time = new Time(provider);
 
@@ -27,7 +27,7 @@ test('provides consecutive intervals after having being started', () => {
 
 test('fails if starting time again that is already started', () => {
     const provider = {
-        getCurrentTimeInSeconds() { return 0; }
+        getProgressiveTime() { return 0; }
     };
     const time = new Time(provider);
 
