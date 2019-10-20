@@ -6,13 +6,15 @@ const config = {
     collectCoverageFrom: ['src/**/*.js'],
     coverageDirectory: '/tmp',
     coveragePathIgnorePatterns: [
+        // DTOs
+        'RunSimulationResponse\.js',
+        // Value objects
+        'Frame\.js',
         // Factories
         'PhysicsFactory\.js',
         // Humble objects
         'ConsoleLogView\.js',
         // Wrappers of static types
-        'PresenterTime\.js',
-        'SystemTime\.js',
         // Main
         'main/main\.js',
     ],

@@ -10,7 +10,7 @@ const RunSimulationUseCase = require('../../../../application/simulation-port/ru
 const Controller = require('../simulation-port/run-simulation-use-case/controllers/Controller');
 
 module.exports = function main() {
-    const simulationTime = new SystemTime();
+    const simulationTime = new SystemTime(process);
     const service = new SimulationService(
         new CliConfiguration(process.argv.slice(2)),
         new Physics(new PhysicsFactory()),

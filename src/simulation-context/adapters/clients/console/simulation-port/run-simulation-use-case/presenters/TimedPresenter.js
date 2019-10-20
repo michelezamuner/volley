@@ -19,10 +19,10 @@ module.exports = class TimedPresenter {
     /**
      * @override
      */
-    present(position) {
+    present(response) {
         if (this._lastIntervalStart === null) {
             this._lastIntervalStart = this._time.getProgressiveTime();
-            this._view.render(position);
+            this._view.render(response.getFrame().getBall().getPosition());
 
             return;
         }
@@ -30,7 +30,7 @@ module.exports = class TimedPresenter {
         const step = 1;
         if (this._time.getProgressiveTime() >= this._lastIntervalStart + step) {
             this._lastIntervalStart += step;
-            this._view.render(position);
+            this._view.render(response.getFrame().getBall().getPosition());
         }
     }
 };

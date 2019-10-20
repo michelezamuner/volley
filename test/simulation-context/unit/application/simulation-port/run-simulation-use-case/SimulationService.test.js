@@ -1,4 +1,5 @@
 const SimulationService = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/SimulationService');
+const Frame = require('../../../../../../src/simulation-context/application/simulation-port/run-simulation-use-case/Frame');
 const Constant = require('../../../../../../src/simulation-context/domain/physics/Constant');
 
 /**
@@ -77,7 +78,7 @@ beforeEach(() => {
     physics.resolve = jest.fn(() => resolutions++);
     time.start = jest.fn();
     callback = jest.fn(arg => {
-        expect(arg).toBe(ball);
+        expect(arg).toEqual(new Frame(ball));
     });
 
     service = new SimulationService(conf, physics, time);

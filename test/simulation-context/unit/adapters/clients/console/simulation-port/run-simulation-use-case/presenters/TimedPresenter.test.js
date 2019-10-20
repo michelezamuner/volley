@@ -9,22 +9,31 @@ test('renders positions once per second', () => {
     const time = {
         getProgressiveTime() { return times[calls++]; },
     };
+    const position = 1234;
+    const ball = {
+        getPosition() { return position; },
+    };
+    const frame = {
+        getBall() { return ball; },
+    };
+    const response = {
+        getFrame() { return frame; },
+    };
 
     const presenter = new TimedPresenter(view, time);
-    const position = 1234;
 
-    presenter.present(position);
+    presenter.present(response);
     expect(view.render).toHaveBeenCalledTimes(1);
     expect(view.render.mock.calls[0][0]).toBe(position);
 
-    presenter.present(position);
+    presenter.present(response);
     expect(view.render).toHaveBeenCalledTimes(1);
 
-    presenter.present(position);
+    presenter.present(response);
     expect(view.render).toHaveBeenCalledTimes(2);
     expect(view.render.mock.calls[1][0]).toBe(position);
 
-    presenter.present(position);
+    presenter.present(response);
     expect(view.render).toHaveBeenCalledTimes(3);
     expect(view.render.mock.calls[2][0]).toBe(position);
 });
