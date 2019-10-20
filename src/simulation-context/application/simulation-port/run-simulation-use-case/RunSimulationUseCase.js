@@ -1,10 +1,12 @@
+const RunSimulationResponse = require('./RunSimulationResponse');
+
 /**
  * @package SimulationContext.Application.SimulationPort.RunSimulationUseCase
  * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.SimulationService
  * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.SimulationPresenter
- * @requires SimulationContext.Domain.Physics.Body
+ * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.RunSimulationResponse
+ * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.Frame
  */
-
 module.exports = class RunSimulationUseCase {
     /**
      * @param {SimulationService} service
@@ -16,8 +18,8 @@ module.exports = class RunSimulationUseCase {
     }
 
     runSimulation() {
-        this._service.run(/** @type {Body} */ball => {
-            this._presenter.present(ball.getPosition());
+        this._service.run(/** @type {Frame} */frame => {
+            this._presenter.present(new RunSimulationResponse(frame));
         });
     }
 };

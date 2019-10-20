@@ -1,8 +1,10 @@
 const Constant = require('../../../domain/physics/Constant');
+const Frame = require('./Frame');
 
 /**
  * @package SimulationContext.Application.SimulationPort.RunSimulationUseCase
  * @requires SimulationContext.Application.ConfigurationPort.Configuration
+ * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.Frame
  * @requires SimulationContext.Domain.Physics.Physics
  * @requires SimulationContext.Domain.Physics.Body
  * @requires SimulationContext.Domain.Physics.Time
@@ -35,7 +37,7 @@ module.exports = class SimulationService {
 
         this._time.start();
         while (this._time.isRunning()) {
-            callback(ball);
+            callback(new Frame(ball));
             this._physics.resolve(this._time.tick());
         }
     }
