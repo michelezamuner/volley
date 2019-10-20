@@ -10,11 +10,12 @@
     },
     "license": "MIT",
     "devDependencies": {
-        "jest": "^24.9"
+        "browserify": "^16.5.0",
+        "jest": "^24.9.0"
     },
     "scripts": {
-        "test": "SC_VLY_ROOT=$(pwd) node --use_strict ./node_modules/.bin/jest",
-        "coverage": "SC_VLY_ROOT=$(pwd) node --use_strict ./node_modules/.bin/jest --coverage",
-        "ci": "SC_VLY_ROOT=$(pwd) JEST_ENV=ci node --use_strict ./node_modules/.bin/jest --coverage"
+        "test": "[ ! -L node_modules ] || rm node_modules && ln -s lib node_modules && SC_VLY_ROOT=$(pwd) node --use_strict ./lib/.bin/jest",
+        "coverage": "[ ! -L node_modules ] || rm node_modules && ln -s lib node_modules && SC_VLY_ROOT=$(pwd) node --use_strict ./lib/.bin/jest --coverage",
+        "ci": "[ ! -L node_modules ] || rm node_modules && ln -s lib node_modules && SC_VLY_ROOT=$(pwd) JEST_ENV=ci node --use_strict ./lib/.bin/jest --coverage"
     }
 }

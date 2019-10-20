@@ -1,6 +1,8 @@
 const config = {
     testEnvironment: 'node',
     verbose: true,
+    roots: ['src', 'test'],
+    moduleDirectories: ['lib'],
     collectCoverageFrom: ['src/**/*.js'],
     coverageDirectory: '/tmp',
     coveragePathIgnorePatterns: [

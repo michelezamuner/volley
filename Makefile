@@ -15,7 +15,7 @@ run:
 	@docker run --rm volley
 
 install:
-	@npm install
+	@yarn install
 
 ci:
-	@npm run ci
+	@yarn run ci
