@@ -17,5 +17,8 @@ run:
 install:
 	@yarn install
 
+web\:compile:
+	@lib/.bin/browserify src/simulation-context/adapters/clients/web/main/main.js -o dist/bundle.js -s main
+
 ci:
 	@yarn run ci

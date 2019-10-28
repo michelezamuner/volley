@@ -15,11 +15,16 @@ const config = {
         'PhysicsFactory\.js',
         // Humble objects
         'ConsoleLogView\.js',
+        'ScreenView\.js',
         // Wrappers of static types
         'BlockingLoop\.js',
         'IntegratedLoop\.js',
+        'WebLoop\.js',
+        'SystemTime\.js',
+        'WebTime\.js',
+        'UrlSearchParams\.js',
         // Main
-        'main/main\.js',
+        'main\.js',
     ],
     coverageReporters: ['text'],
 };
