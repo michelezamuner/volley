@@ -10,11 +10,8 @@ test('renders positions once per second', () => {
         getProgressiveTime() { return times[calls++]; },
     };
     const position = 1234;
-    const ball = {
-        getPosition() { return position; },
-    };
     const frame = {
-        getBall() { return ball; },
+        getBallPos() { return position; },
     };
     const response = {
         getFrame() { return frame; },

@@ -1,7 +1,7 @@
 /**
- * @package SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Views
- * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters.TimedPresenterView
- * @implements TimedPresenterView
+ * @package SimulationContext.Adapters.Clients.Console.SimulationPort.RunSimulationUseCase.Views
+ * @requires SimulationContext.Adapters.Clients.Console.SimulationPort.RunSimulationUseCase.Presenters.TimedPresenterView
+ * @implements TimedView
  */
 module.exports = class ConsoleLogView {
     /**

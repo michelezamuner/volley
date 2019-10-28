@@ -1,13 +1,13 @@
 /**
- * @package SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters
- * @requires SimulationContext.Adapters.LoggingConsoleClient.SimulationPort.RunSimulationUseCase.Presenters.TimedPresenterView
+ * @package SimulationContext.Adapters.Clients.Console.SimulationPort.RunSimulationUseCase.Presenters
+ * @requires SimulationContext.Adapters.Clients.Console.SimulationPort.RunSimulationUseCase.Presenters.TimedView
  * @requires SimulationContext.Application.SimulationPort.RunSimulationUseCase.SimulationPresenter
  * @requires SimulationContext.Application.TimePort.SimulationTime
  * @implements SimulationPresenter
  */
 module.exports = class TimedPresenter {
     /**
-     * @param {TimedPresenterView} view 
+     * @param {TimedView} view 
      * @param {SimulationTime} time 
      */
     constructor(view, time) {
@@ -22,7 +22,7 @@ module.exports = class TimedPresenter {
     present(response) {
         if (this._lastIntervalStart === null) {
             this._lastIntervalStart = this._time.getProgressiveTime();
-            this._view.render(response.getFrame().getBall().getPosition());
+            this._view.render(response.getFrame().getBallPos());
 
             return;
         }
@@ -30,7 +30,7 @@ module.exports = class TimedPresenter {
         const step = 1;
         if (this._time.getProgressiveTime() >= this._lastIntervalStart + step) {
             this._lastIntervalStart += step;
-            this._view.render(response.getFrame().getBall().getPosition());
+            this._view.render(response.getFrame().getBallPos());
         }
     }
 };

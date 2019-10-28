@@ -1,19 +1,27 @@
 /**
  * @package SimulationContext.Application.SimulationPort.RunSimulationUseCase
- * @requires SimulationContext.Domain.Physics.Body
  */
 module.exports = class Frame {
     /**
-     * @param {Body} ball 
+     * @param {Number} ballPos
+     * @param {Number|null} floorPos
      */
-    constructor(ball) {
-        this._ball = ball;
+    constructor(ballPos, floorPos = null) {
+        this._ballPos = ballPos;
+        this._floorPos = floorPos;
     }
 
     /**
-     * @return {Body}
+     * @return {Number}
      */
-    getBall() {
-        return this._ball;
+    getBallPos() {
+        return this._ballPos;
+    }
+
+    /**
+     * @return {Number}
+     */
+    getFloorPos() {
+        return this._floorPos;
     }
 };

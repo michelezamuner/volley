@@ -8,17 +8,20 @@ const Frame = require('./Frame');
  * @requires SimulationContext.Domain.Physics.Physics
  * @requires SimulationContext.Domain.Physics.Body
  * @requires SimulationContext.Domain.Physics.Time
+ * @requires SimulationContext.Application.LoopPort.Loop
  */
 module.exports = class SimulationService {
     /**
      * @param {Configuration} conf
      * @param {Physics} physics
      * @param {Time} time
+     * @param {Loop} loop
      */
-    constructor(conf, physics, time) {
+    constructor(conf, physics, time, loop) {
         this._conf = conf;
         this._physics = physics;
         this._time = time;
+        this._loop = loop;
     }
 
     /**
@@ -36,9 +39,9 @@ module.exports = class SimulationService {
         }
 
         this._time.start();
-        while (this._time.isRunning()) {
-            callback(new Frame(ball));
+        this._loop.run(() => {
+            callback(new Frame(ball.getPosition(), this._conf.getFloorPos()));
             this._physics.resolve(this._time.tick());
-        }
+        });
     }
 };
