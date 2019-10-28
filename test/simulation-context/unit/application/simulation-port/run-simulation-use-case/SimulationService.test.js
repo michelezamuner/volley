@@ -20,7 +20,9 @@ const conf = {};
 /**
  * @var {Object|SimulationContext.Domain.Physics.Body}
  */
-const ball = {};
+const ball = {
+    getPosition() { return ballPos; },
+};
 
 /**
  * @var {Object|SimulationContext.Domain.Physics.Physics}
@@ -58,6 +60,17 @@ const time = {
 };
 
 /**
+ * @var {Object|SimulationContext.Application.LoopPort.Loop}
+ */
+const loop = {
+    run(callback) {
+        while (ticks < intervals.length) {
+            callback();
+        }
+    }
+};
+
+/**
  * @var {null|Function}
  */
 let callback = null;
@@ -78,10 +91,10 @@ beforeEach(() => {
     physics.resolve = jest.fn(() => resolutions++);
     time.start = jest.fn();
     callback = jest.fn(arg => {
-        expect(arg).toEqual(new Frame(ball));
+        expect(arg).toEqual(new Frame(ballPos));
     });
 
-    service = new SimulationService(conf, physics, time);
+    service = new SimulationService(conf, physics, time, loop);
 });
 
 afterEach(() => {
@@ -103,6 +116,9 @@ test('runs physics simulation with floor and elasticity', () => {
     const elasticity = 0.5;
     conf.getFloorPos = () => pos;
     conf.getBallElasticity = () => elasticity;
+    callback = jest.fn(arg => {
+        expect(arg).toEqual(new Frame(ballPos, pos));
+    });
 
     service.run(callback);
 

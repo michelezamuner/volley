@@ -76,6 +76,29 @@
 - ball positions are also printed to the browser's console in debug mode
 - the existing console client is turned into a debug client, used to run automated tests, adding the horizontal position
 
+#### Design
+- domains
+    - Physics domain (core domain)
+- bounded contexts
+    - Simulation context
+- actors and user stories
+    - Player actor
+        - Run Simulation feature
+- ports and use cases
+    - Simulation port (primary)
+        - Run Simulation use case
+    - Time port (secondary)
+    - Configuration port (secondary): get configuration values
+    - **Loop port (secondary): abstracts the implementation of the program loop, to support async environments**
+- adapters
+    - Console client
+        - Simulation port
+    - System Time driver (Time port)
+    - Cli Configuration driver (Configuration port): get configuration values from command line arguments
+    - **Blocking loop (Loop port): implements the program loop with a simple, blocking, infinite loop**
+    - **Integrated loop (Loop port): implements the program loop with the underlying Node event loop**
+
+
 
 ### Iteration 4
 
