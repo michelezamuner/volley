@@ -1,4 +1,6 @@
+!/.travis.yml
 !/.yarnrc
+/dist/*
 /lib/*
-!.gitkeep
 /node_modules
+!.gitkeep
