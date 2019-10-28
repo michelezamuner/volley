@@ -8,6 +8,7 @@ const config = {
     coveragePathIgnorePatterns: [
         // DTOs
         'RunSimulationResponse\.js',
+        'SceneViewModel\.js',
         // Value objects
         'Frame\.js',
         // Factories
@@ -15,6 +16,8 @@ const config = {
         // Humble objects
         'ConsoleLogView\.js',
         // Wrappers of static types
+        'BlockingLoop\.js',
+        'IntegratedLoop\.js',
         // Main
         'main/main\.js',
     ],
