@@ -1,7 +1,7 @@
 /**
  * @package SimulationContext.Adapters.Drivers.IntegratedLoop.LoopPort
- * @requires SimulationContext.Application.LoopPort.Loop
- * @implements Loop
+ * @requires SimulationContext.Application.LoopPort.SimulationLoop
+ * @implements SimulationLoop
  */
 module.exports = class IntegratedLoop {
     /**
@@ -9,6 +9,6 @@ module.exports = class IntegratedLoop {
      */
     run(callback) {
         callback();
-        setImmediate(() => this.run.call(this, callback));
+        setImmediate(() => this.run(callback));
     }
 };
