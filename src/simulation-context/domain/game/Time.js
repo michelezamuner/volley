@@ -1,6 +1,6 @@
 /**
- * @package SimulationContext.Domain.Physics
- * @requires SimulationContext.Domain.Physics.TimeProvider
+ * @package SimulationContext.Domain.Game
+ * @requires SimulationContext.Domain.Game.TimeProvider
  */
 module.exports = class Time {
     /**
@@ -15,29 +15,16 @@ module.exports = class Time {
         this._lastIntervalStart = null;
     }
 
-    /**
-     * @throws
-     */
-    start() {
-        if (this.isRunning()) {
-            throw 'Cannot start again time that is already running';
-        }
+    reset() {
         this._lastIntervalStart = this._provider.getProgressiveTime();
     }
 
     /**
-     * @return {bool}
-     */
-    isRunning() {
-        return this._lastIntervalStart !== null;
-    }
-
-    /**
      * @throws
      */
-    tick() {
-        if (!this.isRunning()) {
-            throw 'Cannot use time that is not running';
+    elapsed() {
+        if (this._lastIntervalStart === null) {
+            throw 'Cannot use time that has not been reset';
         }
 
         const current = this._provider.getProgressiveTime();

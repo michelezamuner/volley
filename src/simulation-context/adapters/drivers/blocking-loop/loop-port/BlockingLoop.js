@@ -1,7 +1,7 @@
 /**
  * @package SimulationContext.Adapters.Drivers.BlockingLoop.LoopPort
- * @requires SimulationContext.Application.LoopPort.Loop
- * @implements Loop
+ * @requires SimulationContext.Application.LoopPort.SimulationLoop
+ * @implements SimulationLoop
  */
 module.exports = class BlockingLoop {
     /**

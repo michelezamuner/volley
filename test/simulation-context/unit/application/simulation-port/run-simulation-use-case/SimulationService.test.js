@@ -49,23 +49,15 @@ let ticks = null;
 /**
  * @var {Array}
  */
-const intervals = [0.1234, 0.5434, 1.2234];
+const elapsed = [0.1234, 0.5434, 1.2234];
 
 /**
- * @var {Object|SimulationContext.Domain.Physics.Time}
- */
-const time = {
-    isRunning() { return ticks < intervals.length; },
-    tick() { return intervals[ticks++]; }
-};
-
-/**
- * @var {Object|SimulationContext.Application.LoopPort.Loop}
+ * @var {Object|SimulationContext.Domain.Game.Loop}
  */
 const loop = {
-    run(callback) {
-        while (ticks < intervals.length) {
-            callback();
+    start(callback) {
+        while (ticks < elapsed.length) {
+            callback(elapsed[ticks++]);
         }
     }
 };
@@ -89,19 +81,17 @@ beforeEach(() => {
     conf.getFloorPos = () => null;
     conf.getAirViscosity = () => null;
     physics.resolve = jest.fn(() => resolutions++);
-    time.start = jest.fn();
     callback = jest.fn(arg => {
         expect(arg).toEqual(new Frame(ballPos));
     });
 
-    service = new SimulationService(conf, physics, time, loop);
+    service = new SimulationService(conf, physics, loop);
 });
 
 afterEach(() => {
-    expect(time.start).toBeCalledTimes(1);
     expect(callback).toBeCalledTimes(resolutions);
-    for (const i in intervals) {
-        expect(physics.resolve.mock.calls[i][0]).toBe(intervals[i]);
+    for (const i in elapsed) {
+        expect(physics.resolve.mock.calls[i][0]).toBe(elapsed[i]);
     }
 });
 
