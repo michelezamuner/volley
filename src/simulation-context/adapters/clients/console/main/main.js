@@ -1,4 +1,3 @@
-const CliConfiguration = require('../../../drivers/cli-configuration/configuration-port/CliConfiguration');
 const SimulationFactory = require('../../../../domain/simulation/SimulationFactory');
 const PhysicsFactory = require('../../../../domain/physics/PhysicsFactory');
 const Physics = require('../../../../domain/physics/Physics');
@@ -15,7 +14,6 @@ const Controller = require('../simulation-port/run-simulation-use-case/controlle
 module.exports = function main() {
     const simulationTime = new SystemTime(process);
     const service = new SimulationService(
-        new CliConfiguration(process.argv.slice(2)),
         new SimulationFactory(new Physics(new PhysicsFactory())),
         new Loop(new IntegratedLoop(), new Time(simulationTime))
     );
@@ -23,5 +21,5 @@ module.exports = function main() {
     const useCase = new RunSimulationUseCase(service, presenter);
     const controller = new Controller(useCase);
     
-    controller.runSimulation();
+    controller.runSimulation(process.argv.slice(2));
 }
