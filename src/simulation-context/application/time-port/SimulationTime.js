@@ -1,6 +1,6 @@
 /**
  * @package SimulationContext.Application.TimePort
- * @requires SimulationContext.Domain.Game.TimeProvider
+ * @requires SimulationContext.Domain.Simulation.TimeProvider
  * @interface SimulationTime
  * @extends TimeProvider
  */

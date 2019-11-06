@@ -1,4 +1,4 @@
-const Loop = require('../../../../../src/simulation-context/domain/game/Loop');
+const Loop = require('../../../../../src/simulation-context/domain/simulation/Loop');
 
 test('starts loop with reset time and callback', () => {
     const time = {

@@ -13,6 +13,7 @@ const config = {
         'Frame\.js',
         // Factories
         'PhysicsFactory\.js',
+        'SimulationFactory\.js',
         // Humble objects
         'ConsoleLogView\.js',
         'ScreenView\.js',
