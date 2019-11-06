@@ -7,7 +7,9 @@ const config = {
     coverageDirectory: '/tmp',
     coveragePathIgnorePatterns: [
         // DTOs
+        'RunSimulationRequest\.js',
         'RunSimulationResponse\.js',
+        'Options\.js',
         'SceneViewModel\.js',
         // Value objects
         'Frame\.js',

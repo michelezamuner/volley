@@ -1,5 +1,4 @@
-const UrlSearchParams = require('../../../drivers/web-configuration/configuration-port/UrlSearchParams');
-const WebConfiguration = require('../../../drivers/web-configuration/configuration-port/WebConfiguration');
+const UrlSearchParams = require('../simulation-port/run-simulation-use-case/controllers/UrlSearchParams');
 const SimulationFactory = require('../../../../domain/simulation/SimulationFactory');
 const PhysicsFactory = require('../../../../domain/physics/PhysicsFactory');
 const Physics = require('../../../../domain/physics/Physics');
@@ -14,13 +13,12 @@ const RunSimulationUseCase = require('../../../../application/simulation-port/ru
 const Controller = require('../../web/simulation-port/run-simulation-use-case/controllers/Controller');
 
 module.exports = function main() {
-    const conf = new WebConfiguration(new UrlSearchParams());
     const factory = new SimulationFactory(new Physics(new PhysicsFactory()));
     const loop = new Loop(new WebLoop, new Time(new WebTime()));
-    const service = new SimulationService(conf, factory, loop);
+    const service = new SimulationService(factory, loop);
     const presenter = new ScenePresenter(new SceneView());
     const useCase = new RunSimulationUseCase(service, presenter);
-    const controller = new Controller(useCase);
+    const controller = new Controller(useCase, new UrlSearchParams());
 
     controller.runSimulation();
 };
