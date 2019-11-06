@@ -1,6 +1,6 @@
 /**
- * @package SimulationContext.Domain.Game
- * @requires SimulationContext.Domain.Game.LoopProvider
+ * @package SimulationContext.Domain.Simulation
+ * @requires SimulationContext.Domain.Simulation.LoopProvider
  * @requires SimulationContext.Domain.Physics.Time
  */
 module.exports = class Loop {

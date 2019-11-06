@@ -1,4 +1,4 @@
-const Time = require('../../../../../src/simulation-context/domain/game/Time');
+const Time = require('../../../../../src/simulation-context/domain/simulation/Time');
 
 test('provides elapsed times', () => {
     let call = 0;

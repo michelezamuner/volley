@@ -1,6 +1,6 @@
 /**
- * @package SimulationContext.Domain.Game
- * @requires SimulationContext.Domain.Game.TimeProvider
+ * @package SimulationContext.Domain.Simulation
+ * @requires SimulationContext.Domain.Simulation.TimeProvider
  */
 module.exports = class Time {
     /**

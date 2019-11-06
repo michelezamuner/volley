@@ -1,5 +1,5 @@
 /**
- * @package SimulationContext.Domain.Game
+ * @package SimulationContext.Domain.Simulation
  * @interface TimeProvider
  * @method getProgressiveTime(): {Number}
  */
